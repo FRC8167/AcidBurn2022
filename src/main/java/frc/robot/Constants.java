@@ -16,7 +16,6 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
 
-
     //CAN IDs for the wiring team
     public static final int LEFT_FRONT = 1;
     public static final int RIGHT_FRONT = 2;
