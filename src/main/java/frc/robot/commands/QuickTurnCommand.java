@@ -49,6 +49,6 @@ public class QuickTurnCommand extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return false; //m_gyroSubsystem.getAngle() > m_initialAngle + m_desiredTurnAngle;
+		return true; //m_gyroSubsystem.getAngle() > m_initialAngle + m_desiredTurnAngle;
 	}
 }

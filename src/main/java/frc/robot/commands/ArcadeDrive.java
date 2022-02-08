@@ -13,6 +13,7 @@ public class ArcadeDrive extends CommandBase {
 	/** Creates a new DriveWithJoysticks. */
 	private final DriveTrain m_driveTrain;
 	private final DoubleSupplier m_throttle, m_rotation;
+
 	public ArcadeDrive(DriveTrain driveTrain, DoubleSupplier throttle, DoubleSupplier rotation) {
 		// Use addRequirements() here to declare subsystem dependencies.
 		m_driveTrain = driveTrain;
@@ -34,7 +35,6 @@ public class ArcadeDrive extends CommandBase {
 		SmartDashboard.putNumber("LeftBackMotor", m_driveTrain.leftBack.getMotorOutputPercent());
 		SmartDashboard.putNumber("RightFrontMotor", m_driveTrain.rightFront.getMotorOutputPercent());
 		SmartDashboard.putNumber("RightBackMotor", m_driveTrain.rightBack.getMotorOutputPercent());*/
-		
 	}
 
 	// Called once the command ends or is interrupted.

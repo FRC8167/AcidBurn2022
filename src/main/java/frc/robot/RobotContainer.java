@@ -56,6 +56,8 @@ public class RobotContainer {
 		m_driveTrain.setDefaultCommand(
 			new ArcadeDrive(m_driveTrain, ()->-driverJoystick.getX(), ()->driverJoystick.getY())
 		);
+
+		System.out.println("got here (robotcontainer init finish)");
 	}
 
 	/**
