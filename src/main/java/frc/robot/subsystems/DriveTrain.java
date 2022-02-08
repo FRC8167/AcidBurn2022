@@ -5,8 +5,8 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.InvertType;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
+// import com.ctre.phoenix.motorcontrol.InvertType;
+// import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -18,17 +18,16 @@ public class DriveTrain extends SubsystemBase {
 	//TODO: look up "position mode" (USE THIS??? v good for autonomous)
 	//TODO: look up motion profiling
 
-	//
-	public WPI_TalonFX leftFront = new WPI_TalonFX(Constants.LEFT_FRONT);
-	public WPI_TalonFX rightFront = new WPI_TalonFX(Constants.RIGHT_FRONT);
-	public WPI_TalonFX leftBack = new WPI_TalonFX(Constants.LEFT_BACK);
-	public WPI_TalonFX rightBack = new WPI_TalonFX(Constants.RIGHT_BACK);
+	private WPI_TalonFX leftFront = new WPI_TalonFX(Constants.LEFT_FRONT);
+	private WPI_TalonFX rightFront = new WPI_TalonFX(Constants.RIGHT_FRONT);
+	private WPI_TalonFX leftBack = new WPI_TalonFX(Constants.LEFT_BACK);
+	private WPI_TalonFX rightBack = new WPI_TalonFX(Constants.RIGHT_BACK);
 
-   // PIDController leftPIDController = new PIDController(Constants.kpDriveVelocity, 0.0, 0.0);
-    //PIDController rightPIDController = new PIDController(Constants.kpDriveVelocity, 0.0, 0.0);
+    // PIDController leftPIDController = new PIDController(Constants.kpDriveVelocity, 0.0, 0.0);
+    // PIDController rightPIDController = new PIDController(Constants.kpDriveVelocity, 0.0, 0.0);
 	
 
-	DifferentialDrive drive = new DifferentialDrive(leftFront, rightFront);
+	private DifferentialDrive drive = new DifferentialDrive(leftFront, rightFront);
 	
 	/** Creates a new DriveTrain. */
 	public DriveTrain() {
@@ -55,7 +54,7 @@ public class DriveTrain extends SubsystemBase {
 		rightBack.setSafetyEnabled(false);
         */
 
-         //Use this when not using PID control
+        //Use this when not using PID control
 		/*leftFront.configOpenloopRamp(0.05);
 		leftBack.configOpenloopRamp(0.05);
 		rightFront.configOpenloopRamp(0.05);
@@ -63,6 +62,7 @@ public class DriveTrain extends SubsystemBase {
         
 
         //Use below for closed loop PID control
+        /*
         //leftFront.configClosedloopRamp(1);
         //rightFront.configClosedloopRamp(1);
         //leftBack.configClosedloopRamp(1);
@@ -128,24 +128,21 @@ public class DriveTrain extends SubsystemBase {
         //leftFront.selectProfileSlot(Constants.kSlotIDx, Constants.kpIDLoopIDx);
        // rightFront.selectProfileSlot(Constants.kSlotIDx, Constants.kpIDLoopIDx);
 
-       // zeroSensors();
-
+       // zeroSensors();*/
 	}
 	
-	@Override
-	public void periodic() {
-		// This method will be called once per scheduler run
-	}
+	
+	
 	/*
 	public void driveWithJoysticks(Joystick driverJoystick, double speed)
 	{
 		drive.arcadeDrive(driverJoystick.getRawAxis(Constants.GP_LEFT_Y_AXIS) * speed, driverJoystick.getRawAxis(Constants.GP_LEFT_X_AXIS) * speed);
 	}*/
 	
-	public void driveForward(double speed)
+	/*public void driveForward(double speed)
 	{
 		drive.tankDrive(speed, speed);
-	}
+	}*/
 
    /* public void arcadeDrive(Joystick driverJoystick, double speed)
 	{
@@ -154,10 +151,11 @@ public class DriveTrain extends SubsystemBase {
         drive.feed(); //resets the timer
   }  */
 
-  public void arcadeDrive(double throttle, double rotation)
-  {
-      drive.arcadeDrive(throttle, rotation);
-  }
+    public void arcadeDrive(double throttle, double rotation)
+    {
+        drive.arcadeDrive(throttle, rotation);
+        //feed
+    }
 	
 	public void tankDrive(double leftSpeed, double rightSpeed) {
 	
@@ -250,5 +248,9 @@ public class DriveTrain extends SubsystemBase {
 	public void stop()
 	{
 		drive.stopMotor();
+	}
+    @Override
+    public void periodic() {
+		// This method will be called once per scheduler run
 	}
 }

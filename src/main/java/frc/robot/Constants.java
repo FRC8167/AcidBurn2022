@@ -32,7 +32,7 @@ public final class Constants {
     public static final int GP_LEFT_X_AXIS = 0; //may not be needed in 2022
     public static final int GP_LEFT_Y_AXIS = 1;  // may not be needed in 2022
     public static final double DRIVETRAINSPEED = 0.7;
-    public static final double DRIVE_FORWARD_TIME = 19.0;
+    public static final double DRIVE_FORWARD_TIME = 10.0;
     public static final double AUTONOMOUS_SPEED = 0.4;
     public static final int DRIVERJOYSTICK_NUMBER = 0;
     public static final int OPERATORJOYSTICK_NUMBER = 1;

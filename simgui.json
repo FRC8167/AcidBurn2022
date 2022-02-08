@@ -32,7 +32,8 @@
       "/LiveWindow/Ungrouped/PIDController[1]": "PIDController",
       "/LiveWindow/Ungrouped/PIDController[2]": "PIDController",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
-      "/Shuffleboard/Gyro/ADXRS450_Gyro[0]": "Gyro"
+      "/Shuffleboard/Gyro/ADXRS450_Gyro[0]": "Gyro",
+      "/SmartDashboard/SendableChooser[0]": "String Chooser"
     },
     "windows": {
       "/LiveWindow/DriveTrain": {
@@ -40,6 +41,14 @@
           "visible": true
         }
       }
+    }
+  },
+  "NetworkTables": {
+    "LiveWindow": {
+      "Gyro": {
+        "open": true
+      },
+      "open": true
     }
   }
 }

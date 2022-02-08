@@ -7,10 +7,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Gyro;
 import frc.robot.subsystems.Indexer;
-import frc.robot.subsystems.Intake;
+// import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 //import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -35,29 +37,25 @@ public class RobotContainer {
   public static Joystick driverJoystick = new Joystick(Constants.DRIVERJOYSTICK_NUMBER);
   public static Joystick operatorJoystick = new Joystick(Constants.OPERATORJOYSTICK_NUMBER);
   public final Indexer m_indexer = new Indexer();
-  private final Intake m_intake = new Intake();
-  //private final Shooter m_shooter = new Shooter();
+  // private final Intake m_intake = new Intake();
+  private final Shooter m_shooter = new Shooter();
   public static Gyro m_gyro = new Gyro();
 
 
   //Commands
-  //private final ArcadeDrive arcadeDrive;
+
   private final DriveForwardTimed m_driveForwardTimed = new DriveForwardTimed(m_driveTrain);
+  private final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-
     configureButtonBindings();
     //arcadeDrive = new ArcadeDrive(m_driveTrain);
 
     m_driveTrain.setDefaultCommand(
-    (new ArcadeDrive(m_driveTrain, ()->-driverJoystick.getY(), ()->driverJoystick.getX())
-    )
+      new ArcadeDrive(m_driveTrain, ()->-driverJoystick.getX(), ()->driverJoystick.getY())
     );
-
-  
-   
   }
 
   /**
@@ -68,44 +66,46 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
+    //Intake Cargo
+    // new JoystickButton(driverJoystick, Constants.kGamepadBumperRight)
+    //   .whileHeld(() -> m_intake.collect(Constants.INTAKE_SPEED))
+    //   .whenReleased(() ->m_intake.stop());
 
-   
-  //Intake Cargo
-  new JoystickButton(driverJoystick, Constants.kGamepadBumperRight)
-    .whileHeld(() -> m_intake.collect(Constants.INTAKE_SPEED))
-    .whenReleased(() ->m_intake.stop());
+    // //Eject Cargo
+    // new JoystickButton(driverJoystick, Constants.kGamepadBumperLeft)
+    //   .whileHeld(() -> m_intake.eject(Constants.INTAKE_SPEED))
+    //   .whenReleased(() ->m_intake.stop());
 
-  //Eject Cargo
-  new JoystickButton(driverJoystick, Constants.kGamepadBumperLeft)
-    .whileHeld(() -> m_intake.eject(Constants.INTAKE_SPEED))
-    .whenReleased(() ->m_intake.stop());
+    //Index Cargo toward shooter
+    new JoystickButton(driverJoystick, Constants.gamepadAButton)
+      .whileHeld(() -> m_indexer.indexCargo(Constants.INDEX_SPEED))
+      .whenReleased(() -> m_indexer.stop());
 
-  //Index Cargo toward shooter
-  new JoystickButton(driverJoystick, Constants.gamepadAButton)
-    .whileHeld(() -> m_indexer.indexCargo(Constants.INDEX_SPEED))
+    //Dedex Cargo toward intake
+    new JoystickButton(driverJoystick, Constants.gamepadBButton)
+    .whileHeld(() -> m_indexer.outdexCargo(Constants.INDEX_SPEED))
     .whenReleased(() -> m_indexer.stop());
 
-  //Dedex Cargo toward intake
-  new JoystickButton(driverJoystick, Constants.gamepadBButton)
-  .whileHeld(() -> m_indexer.outdexCargo(Constants.INDEX_SPEED))
-  .whenReleased(() -> m_indexer.stop());
+    //SpinUp for Shooting
+    new JoystickButton(operatorJoystick, Constants.gamepadXButton)
+    .whileHeld(() -> m_shooter.spinUp(Constants.SHOOTER_SPINUP_SPEED))
+    .whenReleased(() -> m_shooter.stop());
 
-  //SpinUp for Shooting
- /* new JoystickButton(operatorJoystick, Constants.gamepadXButton)
-  .whileHeld(() -> m_shooter.spinUp(Constants.SHOOTER_SPINUP_SPEED))
-  .whenReleased(() -> m_shooter.stop());
+    //SpinDown for Shooting
+    new JoystickButton(operatorJoystick, Constants.gamepadYButton)
+    .whileHeld(() -> m_shooter.spinDown(Constants.SHOOTER_SPINDOWN_SPEED))
+    .whenReleased(() -> m_shooter.stop());
+    
+    System.out.println("got here 0");
+    //90 RIGHT Turn
+    new JoystickButton(operatorJoystick, Constants.gamepadAButton)
+    .whenPressed(new QuickTurnCommand(m_driveTrain, m_gyro, 90));
 
-  //SpinDown for Shooting
-  new JoystickButton(operatorJoystick, Constants.gamepadYButton)
-  .whileHeld(() -> m_shooter.spinDown(Constants.SHOOTER_SPINDOWN_SPEED))
-  .whenReleased(() -> m_shooter.stop());*/
-  
-  //90 RIGHT Turn
-  new JoystickButton(operatorJoystick, Constants.gamepadAButton)
-  .whenPressed(new QuickTurnCommand(m_driveTrain, 90));
 
+    m_chooser.addOption("Drive Forward Timed", new DriveForwardTimed(m_driveTrain));
+    m_chooser.setDefaultOption("Drive Forward Timed", new DriveForwardTimed(m_driveTrain));
+    SmartDashboard.putData(m_chooser);
   }
-
 
 
   /**
