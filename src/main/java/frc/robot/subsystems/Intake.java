@@ -11,28 +11,28 @@ import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
-  /** Creates a new Intake. */
-  //public final CANSparkMax intake;
-  public CANSparkMax intakeMotor = new CANSparkMax(Constants.INTAKE_MOTOR, MotorType.kBrushed);
+	/** Creates a new Intake. */
+	//public final CANSparkMax intake;
+	public CANSparkMax intakeMotor = new CANSparkMax(Constants.INTAKE_MOTOR, MotorType.kBrushed);
 
-  public Intake() {
-    intakeMotor.setIdleMode(IdleMode.kBrake);
-  }
+	public Intake() {
+		intakeMotor.setIdleMode(IdleMode.kBrake);
+	}
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+	@Override
+	public void periodic() {
+		// This method will be called once per scheduler run
+	}
 
-  public void collect(double speed){
-    intakeMotor.set(speed);
-  }
+	public void collect(double speed){
+		intakeMotor.set(speed);
+	}
 
-  public void eject(double speed){
-    intakeMotor.set(-speed);
-  }
+	public void eject(double speed){
+		intakeMotor.set(-speed);
+	}
 
-  public void stop() {
-    intakeMotor.stopMotor();
-  }
+	public void stop() {
+		intakeMotor.stopMotor();
+	}
 }

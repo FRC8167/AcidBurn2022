@@ -8,25 +8,25 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Gyro extends SubsystemBase {
-  /** Creates a new Gyro. */
-  private final ADXRS450_Gyro gyroSensor;
+	/** Creates a new Gyro. */
+	private final ADXRS450_Gyro gyroSensor;
 
-  public Gyro() {
-    System.out.println("got here -1");
-    gyroSensor = new ADXRS450_Gyro();
-    gyroSensor.calibrate();
-  }
+	public Gyro() {
+		System.out.println("got here -1");
+		gyroSensor = new ADXRS450_Gyro();
+		gyroSensor.calibrate();
+	}
 
-  public double getAngle(){
-    return gyroSensor.getAngle();
-  }
+	public double getAngle(){
+		return gyroSensor.getAngle();
+	}
 
-  public void reset() {
-    gyroSensor.reset();
-  }
+	public void reset() {
+		gyroSensor.reset();
+	}
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+	@Override
+	public void periodic() {
+		// This method will be called once per scheduler run
+	}
 }
