@@ -11,11 +11,11 @@ import frc.robot.subsystems.Gyro;
 
 public class QuickTurnCommand extends CommandBase {
   /** Creates a new QuickTurnCommand. */
- public static double m_desiredTurnAngle;
- private final DriveTrain m_driveTrain;
- private final Gyro m_gyroSubsystem;
- private final double m_initialAngle;
- 
+  public static double m_desiredTurnAngle;
+  private final DriveTrain m_driveTrain;
+  private final Gyro m_gyroSubsystem;
+  private final double m_initialAngle;
+  
   public QuickTurnCommand(DriveTrain driveTrain, Gyro gyroSubsystem, int desiredTurnAngle) {
     System.out.println("got here 1");
     m_driveTrain = driveTrain;

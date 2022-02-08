@@ -7,8 +7,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+// import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Gyro;
 import frc.robot.subsystems.Indexer;
@@ -45,7 +45,7 @@ public class RobotContainer {
   //Commands
 
   private final DriveForwardTimed m_driveForwardTimed = new DriveForwardTimed(m_driveTrain);
-  private final SendableChooser<Command> m_chooser = new SendableChooser<>();
+  // private final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -102,9 +102,9 @@ public class RobotContainer {
     .whenPressed(new QuickTurnCommand(m_driveTrain, m_gyro, 90));
 
 
-    m_chooser.addOption("Drive Forward Timed", new DriveForwardTimed(m_driveTrain));
-    m_chooser.setDefaultOption("Drive Forward Timed", new DriveForwardTimed(m_driveTrain));
-    SmartDashboard.putData(m_chooser);
+    // m_chooser.addOption("Drive Forward Timed", new DriveForwardTimed(m_driveTrain));
+    // m_chooser.setDefaultOption("Drive Forward Timed", new DriveForwardTimed(m_driveTrain));
+    // SmartDashboard.putData(m_chooser);
   }
 
 
