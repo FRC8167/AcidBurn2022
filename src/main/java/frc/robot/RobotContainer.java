@@ -29,7 +29,7 @@ public class RobotContainer {
 	public static Gyro m_gyro = new Gyro();
 	
 	// autonomous command
-	private final DriveForwardTimed m_driveForwardTimed = new DriveForwardTimed(m_driveTrain);
+	private final DriveForwardTimed m_driveForwardTimed = new DriveForwardTimed(m_driveTrain, Constants.DRIVE_FORWARD_TIME);
 	
 	public RobotContainer() {
 		configureButtonBindings();

@@ -11,12 +11,16 @@ import frc.robot.subsystems.DriveTrain;
 
 public class DriveForwardTimed extends CommandBase {
 	private final DriveTrain m_driveTrain;
-	private final Timer timer;
 	
-	/** Creates a new DriveForwardTimed. */
-	public DriveForwardTimed(DriveTrain driveTrain) {
-		timer = new Timer();
+	private final Timer timer;
+	private final double timeToDrive;
+	
+	// Creates a new DriveForwardTimed.
+	public DriveForwardTimed(DriveTrain driveTrain, double driveTime) {
 		m_driveTrain = driveTrain;
+		
+		timer = new Timer();
+		timeToDrive = driveTime;
 		
 		addRequirements(m_driveTrain);
 	}
@@ -43,6 +47,6 @@ public class DriveForwardTimed extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return timer.get() < Constants.DRIVE_FORWARD_TIME;
+		return timer.get() < timeToDrive;
 	}
 }
