@@ -15,6 +15,8 @@ import edu.wpi.first.math.util.Units;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+	// TODO: there are a LOT of these - not ALL of them are needed, right?
+	
 	//CAN IDs for the wiring team
 	public static final int LEFT_FRONT = 1;
 	public static final int RIGHT_FRONT = 2;
@@ -57,7 +59,7 @@ public final class Constants {
 	public static final double chassisWheelDiameterMeters = Units.inchesToMeters(6.0);  //0.1524
 	public static final double chassisWheelCircumferenceMeters = Units.inchesToMeters(Math.PI*6.0);  //~0.4785
 	public static final double chassisGearRatio = 1 / 10.75;  //per AndyMark KOP documentation
-	public static final double distancePerEncoderPulseMeters = chassisWheelCircumferenceMeters * chassisGearRatio / (double) encoderCPR;
+	public static final double distancePerEncoderPulseMeters = chassisWheelCircumferenceMeters * chassisGearRatio / encoderCPR;
 	public static final int turnAutoSlotIDx = 1;
 	public static final int PID_TURN = 1;
 }
