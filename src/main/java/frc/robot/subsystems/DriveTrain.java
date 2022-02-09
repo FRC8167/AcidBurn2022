@@ -24,7 +24,7 @@ public class DriveTrain extends SubsystemBase {
 	private WPI_TalonFX rightBack = new WPI_TalonFX(Constants.RIGHT_BACK);
 	
 	private DifferentialDrive drive = new DifferentialDrive(leftFront, rightFront);
-	
+
 	/** Creates a new DriveTrain. */
 	public DriveTrain() {
 		leftFront.configFactoryDefault();

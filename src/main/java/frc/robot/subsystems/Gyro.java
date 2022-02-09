@@ -12,9 +12,11 @@ public class Gyro extends SubsystemBase {
 	private final ADXRS450_Gyro gyroSensor;
 	
 	public Gyro() {
-		System.out.println("got here -1");
 		gyroSensor = new ADXRS450_Gyro();
-		gyroSensor.calibrate();
+		// TODO: CALLING THIS BREAKS LITERALLY EVERYTHING!!!
+		// FINDING THIS OUT TOOK LITERALLY 6 HOURS!!!!
+		// WHYYYYYYYYYY??!??!?!?!?
+		// gyroSensor.calibrate();
 	}
 	
 	public double getAngle(){
