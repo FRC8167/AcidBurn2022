@@ -4,11 +4,13 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Gyro;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveForwardTimed;
+// import frc.robot.commands.QuickTurnCommand;
+import frc.robot.controllers.DualXbox;
+import frc.robot.controllers.InputController;
 import frc.robot.commands.ArcadeDrive;
 
 /**
@@ -19,30 +21,31 @@ import frc.robot.commands.ArcadeDrive;
  */
 public class RobotContainer {
 	//Subsystems
-	public static DriveTrain m_driveTrain = new DriveTrain();
-	public static Gyro m_gyro = new Gyro();
+	public static DriveTrain driveTrain = new DriveTrain();
+	public static Gyro gyro = new Gyro();
 	// public final Indexer m_indexer = new Indexer();
 	// private final Intake m_intake = new Intake();
 	// private final Shooter m_shooter = new Shooter();
 	// private final Climber m_climber = new Climber();
 	
-	public static Joystick driverJoystick = new Joystick(Constants.DRIVERJOYSTICK_NUMBER);
-	public static Joystick operatorJoystick = new Joystick(Constants.OPERATORJOYSTICK_NUMBER);
+	public static InputController controller = new DualXbox(Constants.DRIVERJOYSTICK_NUMBER, Constants.OPERATORJOYSTICK_NUMBER);
 	
 	// autonomous command
-	private final DriveForwardTimed m_driveForwardTimed = new DriveForwardTimed(m_driveTrain, Constants.DRIVE_FORWARD_TIME);
+	private final DriveForwardTimed m_driveForwardTimed = new DriveForwardTimed(driveTrain, Constants.DRIVE_FORWARD_TIME);
+	
 	
 	public RobotContainer() {
 		configureButtonBindings();
 		
 		// set default drivetrain command
-		m_driveTrain.setDefaultCommand(
-			new ArcadeDrive(m_driveTrain, ()->-driverJoystick.getX(), ()->driverJoystick.getY())
+		driveTrain.setDefaultCommand(
+			new ArcadeDrive(driveTrain, controller::getForwardSpeed, controller::getTurnSpeed)
 		);
 	}
 	
 	private void configureButtonBindings() {
-		// idec rn - no buttons for you
+		// idec rn - no more buttons for you
+		//TODO: get all these to work with the new InputController interface
 		/*
 		//Intake Cargo
 		// new JoystickButton(driverJoystick, Constants.kGamepadBumperRight)
@@ -74,14 +77,16 @@ public class RobotContainer {
 		// .whileHeld(() -> m_shooter.spinDown(Constants.SHOOTER_SPINDOWN_SPEED))
 		// .whenReleased(() -> m_shooter.stop());
 		
-		// //90 RIGHT Turn
-		// new JoystickButton(operatorJoystick, Constants.gamepadAButton)
-		// .whenPressed(new QuickTurnCommand(m_driveTrain, m_gyro, 90));
-		
+		// // this should not be in here
 		// m_chooser.addOption("Drive Forward Timed", new DriveForwardTimed(m_driveTrain));
 		// m_chooser.setDefaultOption("Drive Forward Timed", new DriveForwardTimed(m_driveTrain));
 		// SmartDashboard.putData(m_chooser);
 		*/
+		
+		// NOTE: this is how buttons work in the new InputController interface
+		// //90 RIGHT Turn
+		// m_inputController.getQuickTurnButton().whenPressed(new QuickTurnCommand(m_driveTrain, m_gyro, 90));
+		
 	}
 	
 	// returns the command to run in autonomous
