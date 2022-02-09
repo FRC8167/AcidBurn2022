@@ -10,7 +10,6 @@ import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
 
 public class DriveForwardTimed extends CommandBase {
-	// TODO: make this normal
 	private final DriveTrain m_driveTrain;
 	private final Timer timer;
 	
@@ -18,6 +17,7 @@ public class DriveForwardTimed extends CommandBase {
 	public DriveForwardTimed(DriveTrain driveTrain) {
 		timer = new Timer();
 		m_driveTrain = driveTrain;
+		
 		addRequirements(m_driveTrain);
 	}
 	
