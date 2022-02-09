@@ -12,13 +12,15 @@ import frc.robot.subsystems.DriveTrain;
 public class ArcadeDrive extends CommandBase {
 	/** Creates a new DriveWithJoysticks. */
 	private final DriveTrain m_driveTrain;
-	private final DoubleSupplier m_throttle, m_rotation;
+	// two functions that return a double, each of which represents a joystick axis
+	private final DoubleSupplier throttleGetter, rotationGetter;
 	
 	public ArcadeDrive(DriveTrain driveTrain, DoubleSupplier throttle, DoubleSupplier rotation) {
 		// Use addRequirements() here to declare subsystem dependencies.
 		m_driveTrain = driveTrain;
-		m_throttle = throttle;
-		m_rotation = rotation;
+		throttleGetter = throttle;
+		rotationGetter = rotation;
+		
 		addRequirements(m_driveTrain);
 	}
 	
@@ -29,12 +31,7 @@ public class ArcadeDrive extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		//m_driveTrain.arcadeDrive(RobotContainer.driverJoystick, Constants.DRIVETRAINSPEED);
-		m_driveTrain.arcadeDrive(m_throttle.getAsDouble(), m_rotation.getAsDouble());
-		/*SmartDashboard.putNumber("LeftFrontMotor", m_driveTrain.leftFront.getMotorOutputPercent());
-		SmartDashboard.putNumber("LeftBackMotor", m_driveTrain.leftBack.getMotorOutputPercent());
-		SmartDashboard.putNumber("RightFrontMotor", m_driveTrain.rightFront.getMotorOutputPercent());
-		SmartDashboard.putNumber("RightBackMotor", m_driveTrain.rightBack.getMotorOutputPercent());*/
+		m_driveTrain.arcadeDrive(throttleGetter.getAsDouble(), rotationGetter.getAsDouble());
 	}
 	
 	// Called once the command ends or is interrupted.

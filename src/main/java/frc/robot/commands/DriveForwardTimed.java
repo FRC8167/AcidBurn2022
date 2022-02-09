@@ -10,19 +10,31 @@ import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
 
 public class DriveForwardTimed extends CommandBase {
-	private final DriveTrain m_driveTrain;
+	private final DriveTrain driveTrain;
 	
 	private final Timer timer;
 	private final double timeToDrive;
+	private final double speed;
 	
 	// Creates a new DriveForwardTimed.
 	public DriveForwardTimed(DriveTrain driveTrain, double driveTime) {
-		m_driveTrain = driveTrain;
+		// TODO: can i factor this out without java complaining abt uninitialiszed final variables?
+		// this.DriveForwardTimed(driveTrain, driveTime, Constants.AUTONOMOUS_SPEED);
+		this.driveTrain = driveTrain;
+		this.timer = new Timer();
+		this.timeToDrive = driveTime;
+		this.speed = Constants.AUTONOMOUS_SPEED;
 		
-		timer = new Timer();
-		timeToDrive = driveTime;
+		addRequirements(driveTrain);
+	}
+	
+	public DriveForwardTimed(DriveTrain driveTrain, double driveTime, double speed) {
+		this.driveTrain = driveTrain;
+		this.timer = new Timer();
+		this.timeToDrive = driveTime;
+		this.speed = speed;
 		
-		addRequirements(m_driveTrain);
+		addRequirements(driveTrain);
 	}
 	
 	// Called when the command is initially scheduled.
@@ -35,13 +47,14 @@ public class DriveForwardTimed extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		m_driveTrain.tankDrive(-Constants.AUTONOMOUS_SPEED, -Constants.AUTONOMOUS_SPEED);
+		// these are negative because we want to drive forward (?) (TODO: check)
+		driveTrain.tankDrive(-speed, -speed);
 	}
 	
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		m_driveTrain.stop();
+		driveTrain.stop();
 	}
 	
 	// Returns true when the command should end.

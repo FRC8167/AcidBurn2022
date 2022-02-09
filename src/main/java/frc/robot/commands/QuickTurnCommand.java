@@ -10,22 +10,23 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Gyro;
 
 public class QuickTurnCommand extends CommandBase {
-	/** Creates a new QuickTurnCommand. */
-	public static double m_desiredTurnAngle;
-	private final DriveTrain m_driveTrain;
-	private final Gyro m_gyroSubsystem;
-	private final double m_initialAngle;
+	private final DriveTrain driveTrain;
+	private final Gyro gyro;
 	
+	private final double turnAngle;
+	private final double initialAngle;
+	
+	/** Creates a new QuickTurnCommand. */
 	public QuickTurnCommand(DriveTrain driveTrain, Gyro gyroSubsystem, int desiredTurnAngle) {
-		m_driveTrain = driveTrain;
-		m_gyroSubsystem = gyroSubsystem;
+		this.driveTrain = driveTrain;
+		this.gyro = gyroSubsystem;
 		
-		m_desiredTurnAngle = desiredTurnAngle;
-		m_initialAngle = m_gyroSubsystem.getAngle();
+		this.turnAngle = desiredTurnAngle;
+		this.initialAngle = gyro.getAngle();
 		
 		// Use addRequirements() here to declare subsystem dependencies.
-		addRequirements(m_gyroSubsystem);
-		addRequirements(m_driveTrain);
+		addRequirements(gyro);
+		addRequirements(driveTrain);
 	}
 	
 	// Called when the command is initially scheduled.
@@ -37,7 +38,7 @@ public class QuickTurnCommand extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		m_driveTrain.arcadeDrive(0.0, 0.1);
+		driveTrain.arcadeDrive(0.0, 0.1);
 	}
 	
 	// Called once the command ends or is interrupted.
@@ -47,6 +48,6 @@ public class QuickTurnCommand extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return m_gyroSubsystem.getAngle() > m_initialAngle + m_desiredTurnAngle;
+		return gyro.getAngle() > initialAngle + turnAngle;
 	}
 }
