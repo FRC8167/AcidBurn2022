@@ -8,7 +8,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Gyro;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveForwardTimed;
-// import frc.robot.commands.QuickTurnCommand;
+import frc.robot.commands.QuickTurnCommand;
 import frc.robot.controllers.DualXbox;
 import frc.robot.controllers.InputController;
 import frc.robot.commands.ArcadeDrive;
@@ -21,22 +21,26 @@ import frc.robot.commands.ArcadeDrive;
  */
 public class RobotContainer {
 	//Subsystems
-	public DriveTrain driveTrain = new DriveTrain();
-	public Gyro gyro = new Gyro();
+	private DriveTrain driveTrain = new DriveTrain();
+	private Gyro gyro = new Gyro();
 	// public final Indexer m_indexer = new Indexer();
 	// private final Intake m_intake = new Intake();
 	// private final Shooter m_shooter = new Shooter();
 	// private final Climber m_climber = new Climber();
-	public InputController controller;
+	
+	// controller
+	private InputController controller;
 	
 	// autonomous command
 	private final DriveForwardTimed m_driveForwardTimed = new DriveForwardTimed(driveTrain, Constants.DRIVE_FORWARD_TIME);
 	
 	
 	public RobotContainer() {
+		// this can be easily changed to anything supporting the InputController interface
 		controller = new DualXbox(Constants.DRIVERJOYSTICK_NUMBER, Constants.OPERATORJOYSTICK_NUMBER);
 		
-		configureButtonBindings(controller);
+		
+		configureButtonBindings();
 		
 		// set default drivetrain command
 		driveTrain.setDefaultCommand(
@@ -44,7 +48,7 @@ public class RobotContainer {
 		);
 	}
 	
-	private static void configureButtonBindings(InputController controller) {
+	private void configureButtonBindings() {
 		// idec rn - no more buttons for you
 		//TODO: get all these to work with the new InputController interface
 		/*
@@ -85,10 +89,8 @@ public class RobotContainer {
 		*/
 		
 		// NOTE: this is how buttons work in the new InputController interface
-		// //90 RIGHT Turn
-		// controller.getQuickTurnButton()
-		// 	.whenPressed(new QuickTurnCommand(m_driveTrain, m_gyro, 90));
-		
+		//90 RIGHT Turn
+		controller.getQuickTurnButton().whenPressed(new QuickTurnCommand(driveTrain, gyro, 90));
 	}
 	
 	// returns the command to run in autonomous
