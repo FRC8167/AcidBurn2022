@@ -15,6 +15,7 @@ public class Shooter extends SubsystemBase {
 	//Create TalonFx objects to control the motors
 	public static WPI_TalonFX leftShooterMotor = new WPI_TalonFX(Constants.LEFT_SHOOTER_MOTOR);
 	public static WPI_TalonFX rightShooterMotor = new WPI_TalonFX(Constants.RIGHT_SHOOTER_MOTOR);
+	
 	/** Creates a new Shooter. */
 	public Shooter() {
 		//Set both motors to Coast mode.

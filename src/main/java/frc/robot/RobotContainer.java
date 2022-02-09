@@ -7,7 +7,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Gyro;
-import frc.robot.subsystems.Indexer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveForwardTimed;
 import frc.robot.commands.ArcadeDrive;
@@ -21,12 +20,14 @@ import frc.robot.commands.ArcadeDrive;
 public class RobotContainer {
 	//Subsystems
 	public static DriveTrain m_driveTrain = new DriveTrain();
-	public static Joystick driverJoystick = new Joystick(Constants.DRIVERJOYSTICK_NUMBER);
-	public static Joystick operatorJoystick = new Joystick(Constants.OPERATORJOYSTICK_NUMBER);
-	public final Indexer m_indexer = new Indexer();
+	public static Gyro m_gyro = new Gyro();
+	// public final Indexer m_indexer = new Indexer();
 	// private final Intake m_intake = new Intake();
 	// private final Shooter m_shooter = new Shooter();
-	public static Gyro m_gyro = new Gyro();
+	// private final Climber m_climber = new Climber();
+	
+	public static Joystick driverJoystick = new Joystick(Constants.DRIVERJOYSTICK_NUMBER);
+	public static Joystick operatorJoystick = new Joystick(Constants.OPERATORJOYSTICK_NUMBER);
 	
 	// autonomous command
 	private final DriveForwardTimed m_driveForwardTimed = new DriveForwardTimed(m_driveTrain, Constants.DRIVE_FORWARD_TIME);
