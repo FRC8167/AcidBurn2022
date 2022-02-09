@@ -11,31 +11,32 @@ public class IndexCargo extends CommandBase {
 	/** Creates a new IndexCargo. */
 	private final Indexer m_indexer;
 	private final DoubleSupplier m_power;
-
+	
 	public IndexCargo(Indexer indexer, DoubleSupplier power) {
 		// Use addRequirements() here to declare subsystem dependencies.
 		m_indexer = indexer;
 		m_power = power;
 		addRequirements(m_indexer);
 	}
-
+	
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
+		
 	}
-
+	
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute()	{
 		m_indexer.indexCargo(m_power.getAsDouble());
 	}
-
+	
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
 		m_indexer.stop();
 	}
-
+	
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {

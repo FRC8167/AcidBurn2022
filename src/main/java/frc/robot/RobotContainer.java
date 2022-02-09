@@ -31,7 +31,7 @@ public class RobotContainer {
 	// The robot's subsystems and commands are defined here...
 	//private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 	//private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-
+	
 	//Subsystems
 	public static DriveTrain m_driveTrain = new DriveTrain();
 	public static Joystick driverJoystick = new Joystick(Constants.DRIVERJOYSTICK_NUMBER);
@@ -40,26 +40,26 @@ public class RobotContainer {
 	// private final Intake m_intake = new Intake();
 	private final Shooter m_shooter = new Shooter();
 	public static Gyro m_gyro = new Gyro();
-
-
+	
+	
 	//Commands
-
+	
 	private final DriveForwardTimed m_driveForwardTimed = new DriveForwardTimed(m_driveTrain);
 	// private final SendableChooser<Command> m_chooser = new SendableChooser<>();
-
-
+	
+	
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
 	public RobotContainer() {
 		configureButtonBindings();
 		//arcadeDrive = new ArcadeDrive(m_driveTrain);
-
+		
 		m_driveTrain.setDefaultCommand(
 			new ArcadeDrive(m_driveTrain, ()->-driverJoystick.getX(), ()->driverJoystick.getY())
 		);
-
+		
 		System.out.println("got here (robotcontainer init finish)");
 	}
-
+	
 	/**
 	 * Use this method to define your button->command mappings. Buttons can be created by
 	 * instantiating a {@link GenericHID} or one of its subclasses ({@link
@@ -67,32 +67,31 @@ public class RobotContainer {
 	 * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
 	 */
 	private void configureButtonBindings() {
-
 		//Intake Cargo
 		// new JoystickButton(driverJoystick, Constants.kGamepadBumperRight)
 		//	 .whileHeld(() -> m_intake.collect(Constants.INTAKE_SPEED))
 		//	 .whenReleased(() ->m_intake.stop());
-
+		
 		// //Eject Cargo
 		// new JoystickButton(driverJoystick, Constants.kGamepadBumperLeft)
 		//	 .whileHeld(() -> m_intake.eject(Constants.INTAKE_SPEED))
 		//	 .whenReleased(() ->m_intake.stop());
-
+		
 		//Index Cargo toward shooter
 		new JoystickButton(driverJoystick, Constants.gamepadAButton)
 			.whileHeld(() -> m_indexer.indexCargo(Constants.INDEX_SPEED))
 			.whenReleased(() -> m_indexer.stop());
-
+		
 		//Dedex Cargo toward intake
 		new JoystickButton(driverJoystick, Constants.gamepadBButton)
 		.whileHeld(() -> m_indexer.outdexCargo(Constants.INDEX_SPEED))
 		.whenReleased(() -> m_indexer.stop());
-
+		
 		//SpinUp for Shooting
 		new JoystickButton(operatorJoystick, Constants.gamepadXButton)
 		.whileHeld(() -> m_shooter.spinUp(Constants.SHOOTER_SPINUP_SPEED))
 		.whenReleased(() -> m_shooter.stop());
-
+		
 		//SpinDown for Shooting
 		new JoystickButton(operatorJoystick, Constants.gamepadYButton)
 		.whileHeld(() -> m_shooter.spinDown(Constants.SHOOTER_SPINDOWN_SPEED))
@@ -102,14 +101,13 @@ public class RobotContainer {
 		//90 RIGHT Turn
 		new JoystickButton(operatorJoystick, Constants.gamepadAButton)
 		.whenPressed(new QuickTurnCommand(m_driveTrain, m_gyro, 90));
-
-
+		
+		
 		// m_chooser.addOption("Drive Forward Timed", new DriveForwardTimed(m_driveTrain));
 		// m_chooser.setDefaultOption("Drive Forward Timed", new DriveForwardTimed(m_driveTrain));
 		// SmartDashboard.putData(m_chooser);
 	}
-
-
+	
 	/**
 	 * Use this to pass the autonomous command to the main {@link Robot} class.
 	 *

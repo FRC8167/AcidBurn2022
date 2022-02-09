@@ -13,7 +13,7 @@ public class ArcadeDrive extends CommandBase {
 	/** Creates a new DriveWithJoysticks. */
 	private final DriveTrain m_driveTrain;
 	private final DoubleSupplier m_throttle, m_rotation;
-
+	
 	public ArcadeDrive(DriveTrain driveTrain, DoubleSupplier throttle, DoubleSupplier rotation) {
 		// Use addRequirements() here to declare subsystem dependencies.
 		m_driveTrain = driveTrain;
@@ -21,11 +21,11 @@ public class ArcadeDrive extends CommandBase {
 		m_rotation = rotation;
 		addRequirements(m_driveTrain);
 	}
-
+	
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {}
-
+	
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
@@ -36,13 +36,13 @@ public class ArcadeDrive extends CommandBase {
 		SmartDashboard.putNumber("RightFrontMotor", m_driveTrain.rightFront.getMotorOutputPercent());
 		SmartDashboard.putNumber("RightBackMotor", m_driveTrain.rightBack.getMotorOutputPercent());*/
 	}
-
+	
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
 		m_driveTrain.stop();
 	}
-
+	
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {

@@ -20,32 +20,32 @@ public class QuickTurnCommand extends CommandBase {
 		System.out.println("got here 1");
 		m_driveTrain = driveTrain;
 		m_gyroSubsystem = gyroSubsystem;
-
+		
 		m_desiredTurnAngle = desiredTurnAngle;
 		m_initialAngle = m_gyroSubsystem.getAngle();
-
+		
 		// Use addRequirements() here to declare subsystem dependencies.
 		addRequirements(m_gyroSubsystem);
 		addRequirements(m_driveTrain);
 	}
-
+	
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
 		System.out.println("got here 2");
 	}
-
+	
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
 		System.out.println("got here 3");
 		m_driveTrain.arcadeDrive(0.0, 0.1);
 	}
-
+	
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {}
-
+	
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {

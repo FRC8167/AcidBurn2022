@@ -17,13 +17,13 @@ public class Shooter extends SubsystemBase {
 	public static WPI_TalonFX rightShooterMotor = new WPI_TalonFX(Constants.RIGHT_SHOOTER_MOTOR);
 	/** Creates a new Shooter. */
 	public Shooter() {
-	//Set both motors to Coast mode.
-	leftShooterMotor.setNeutralMode(NeutralMode.Coast);
-	rightShooterMotor.setNeutralMode(NeutralMode.Coast);
-	
-	//Invert the right motor.	
-	//This will have to be tested depending on mounting configuration
-	rightShooterMotor.setInverted(true);
+		//Set both motors to Coast mode.
+		leftShooterMotor.setNeutralMode(NeutralMode.Coast);
+		rightShooterMotor.setNeutralMode(NeutralMode.Coast);
+		
+		//Invert the right motor.	
+		//This will have to be tested depending on mounting configuration
+		rightShooterMotor.setInverted(true);
 	}
 
 	//spinUp:	spin the motors to prepare to shoot the cargo into a goal
@@ -38,12 +38,12 @@ public class Shooter extends SubsystemBase {
 		leftShooterMotor.set(ControlMode.PercentOutput, power);
 		rightShooterMotor.set(ControlMode.PercentOutput, power);
 	}
-
+	
 	public void stop(){
 		leftShooterMotor.set(ControlMode.PercentOutput, 0);
 		rightShooterMotor.set(ControlMode.PercentOutput, 0);
 	}
-
+	
 	@Override
 	public void periodic() {
 		// This method will be called once per scheduler run

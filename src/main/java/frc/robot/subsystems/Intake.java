@@ -14,24 +14,24 @@ public class Intake extends SubsystemBase {
 	/** Creates a new Intake. */
 	//public final CANSparkMax intake;
 	public CANSparkMax intakeMotor = new CANSparkMax(Constants.INTAKE_MOTOR, MotorType.kBrushed);
-
+	
 	public Intake() {
 		intakeMotor.setIdleMode(IdleMode.kBrake);
 	}
-
+	
 	@Override
 	public void periodic() {
 		// This method will be called once per scheduler run
 	}
-
+	
 	public void collect(double speed){
 		intakeMotor.set(speed);
 	}
-
+	
 	public void eject(double speed){
 		intakeMotor.set(-speed);
 	}
-
+	
 	public void stop() {
 		intakeMotor.stopMotor();
 	}
