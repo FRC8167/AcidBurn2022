@@ -27,7 +27,6 @@ public class RobotContainer {
 	// private final Intake m_intake = new Intake();
 	// private final Shooter m_shooter = new Shooter();
 	// private final Climber m_climber = new Climber();
-	
 	public InputController controller;
 	
 	// autonomous command
@@ -87,7 +86,8 @@ public class RobotContainer {
 		
 		// NOTE: this is how buttons work in the new InputController interface
 		// //90 RIGHT Turn
-		// controller.getQuickTurnButton().whenPressed(new QuickTurnCommand(m_driveTrain, m_gyro, 90));
+		// controller.getQuickTurnButton()
+		// 	.whenPressed(new QuickTurnCommand(m_driveTrain, m_gyro, 90));
 		
 	}
 	
