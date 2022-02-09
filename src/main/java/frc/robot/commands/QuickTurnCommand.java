@@ -17,7 +17,6 @@ public class QuickTurnCommand extends CommandBase {
 	private final double m_initialAngle;
 	
 	public QuickTurnCommand(DriveTrain driveTrain, Gyro gyroSubsystem, int desiredTurnAngle) {
-		System.out.println("got here 1");
 		m_driveTrain = driveTrain;
 		m_gyroSubsystem = gyroSubsystem;
 		
@@ -32,13 +31,12 @@ public class QuickTurnCommand extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		System.out.println("got here 2");
+		
 	}
 	
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		System.out.println("got here 3");
 		m_driveTrain.arcadeDrive(0.0, 0.1);
 	}
 	
@@ -49,6 +47,6 @@ public class QuickTurnCommand extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return true; //m_gyroSubsystem.getAngle() > m_initialAngle + m_desiredTurnAngle;
+		return m_gyroSubsystem.getAngle() > m_initialAngle + m_desiredTurnAngle;
 	}
 }
