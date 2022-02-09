@@ -21,21 +21,23 @@ import frc.robot.commands.ArcadeDrive;
  */
 public class RobotContainer {
 	//Subsystems
-	public static DriveTrain driveTrain = new DriveTrain();
-	public static Gyro gyro = new Gyro();
+	public DriveTrain driveTrain = new DriveTrain();
+	public Gyro gyro = new Gyro();
 	// public final Indexer m_indexer = new Indexer();
 	// private final Intake m_intake = new Intake();
 	// private final Shooter m_shooter = new Shooter();
 	// private final Climber m_climber = new Climber();
 	
-	public static InputController controller = new DualXbox(Constants.DRIVERJOYSTICK_NUMBER, Constants.OPERATORJOYSTICK_NUMBER);
+	public InputController controller;
 	
 	// autonomous command
 	private final DriveForwardTimed m_driveForwardTimed = new DriveForwardTimed(driveTrain, Constants.DRIVE_FORWARD_TIME);
 	
 	
 	public RobotContainer() {
-		configureButtonBindings();
+		controller = new DualXbox(Constants.DRIVERJOYSTICK_NUMBER, Constants.OPERATORJOYSTICK_NUMBER);
+		
+		configureButtonBindings(controller);
 		
 		// set default drivetrain command
 		driveTrain.setDefaultCommand(
@@ -43,7 +45,7 @@ public class RobotContainer {
 		);
 	}
 	
-	private void configureButtonBindings() {
+	private static void configureButtonBindings(InputController controller) {
 		// idec rn - no more buttons for you
 		//TODO: get all these to work with the new InputController interface
 		/*
@@ -85,7 +87,7 @@ public class RobotContainer {
 		
 		// NOTE: this is how buttons work in the new InputController interface
 		// //90 RIGHT Turn
-		// m_inputController.getQuickTurnButton().whenPressed(new QuickTurnCommand(m_driveTrain, m_gyro, 90));
+		// controller.getQuickTurnButton().whenPressed(new QuickTurnCommand(m_driveTrain, m_gyro, 90));
 		
 	}
 	
