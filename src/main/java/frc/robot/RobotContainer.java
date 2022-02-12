@@ -108,4 +108,8 @@ public class RobotContainer {
 		// TODO: actual autonomous code
 		return m_driveForwardTimed;
 	}
+	
+	public void runTest() {
+		driveTrain.arcadeDrive(Constants.AUTONOMOUS_SPEED, 0.0);
+	}
 }
