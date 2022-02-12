@@ -5,11 +5,13 @@
 package frc.robot;
 
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Gyro;
 // import frc.robot.subsystems.Gyro;
 import frc.robot.subsystems.Climber;
 // import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveForwardTimed;
+import frc.robot.commands.QuickTurnCommand;
 import frc.robot.commands.ClimberCommands.RaiseClimberDistance;
 import frc.robot.controllers.DualXbox;
 import frc.robot.controllers.InputController;
@@ -24,7 +26,7 @@ import frc.robot.commands.ArcadeDrive;
 public class RobotContainer {
 	//Subsystems
 	private DriveTrain driveTrain = new DriveTrain();
-	// private Gyro gyro = new Gyro();
+	private Gyro gyro = new Gyro();
 	
 	// public final Indexer m_indexer = new Indexer();
 	// private final Intake m_intake = new Intake();
@@ -95,7 +97,8 @@ public class RobotContainer {
 		
 		// NOTE: this is how buttons work in the new InputController interface
 		//90 RIGHT Turn
-		// controller.getQuickTurnRightButton().whenPressed(new QuickTurnCommand(driveTrain, gyro, 90));
+		controller.getQuickTurnRightButton().whenPressed(new QuickTurnCommand(driveTrain, gyro, 90));
+		
 		//raise climber some distance
 		controller.getMotionMagicRaiseClimberButton().whenPressed(new RaiseClimberDistance(m_climber, 1000000));
 	}

@@ -49,7 +49,9 @@ public class QuickTurnCommand extends CommandBase {
 		}
 		turnPower = Math.min(1, turnPower);
 		turnPower = Math.max(-1, turnPower);
-		driveTrain.arcadeDrive(0.0, turnPower);
+		System.out.println(turnPower);
+		// idk why but arcadeDrive(0, turnPower) doesnt seem to want to work for some reason
+		driveTrain.tankDrive(-turnPower, -turnPower);
 	}
 	
 	// Called once the command ends or is interrupted.
@@ -59,7 +61,7 @@ public class QuickTurnCommand extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		if (Math.abs(gyro.getAngle() -(initialAngle + turnAngle)) < 3) {
+		if (Math.abs(gyro.getAngle() - (initialAngle + turnAngle)) < 3) {
 			return true;
 		}
 		if((startTimeTurn + Constants.turnDegreeTimeout) < Timer.getFPGATimestamp()) {

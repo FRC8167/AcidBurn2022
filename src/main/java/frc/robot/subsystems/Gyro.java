@@ -16,7 +16,7 @@ public class Gyro extends SubsystemBase {
 		// TODO: CALLING THIS BREAKS LITERALLY EVERYTHING!!!
 		// FINDING THIS OUT TOOK LITERALLY 6 HOURS!!!!
 		// WHYYYYYYYYYY??!??!?!?!?
-		// gyroSensor.calibrate();
+		gyroSensor.calibrate();
 	}
 	
 	public double getAngle(){
