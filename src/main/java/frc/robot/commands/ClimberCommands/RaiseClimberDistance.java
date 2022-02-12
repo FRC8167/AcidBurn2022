@@ -6,13 +6,10 @@ package frc.robot.commands.ClimberCommands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Climber;
 
 public class RaiseClimberDistance extends CommandBase {
-	// TODO: put these in Constants
-	private static final int maxSpeed = 30000;
-	private static final int maxAccelleration = 8000;
-	
 	private final Climber climber;
 	private final int distance;
 	private double startTime;
@@ -27,7 +24,7 @@ public class RaiseClimberDistance extends CommandBase {
 	@Override
 	public void initialize() {
 		startTime = Timer.getFPGATimestamp();
-		climber.setMotionMagic(distance, maxSpeed, maxAccelleration);
+		climber.setMotionMagic(distance, Constants.maxClimberSpeed, Constants.maxClimberAccelleration);
 	}
 	
 	// Called every time the scheduler runs while the command is scheduled.
@@ -43,7 +40,7 @@ public class RaiseClimberDistance extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		// TODO: put this '5' in a constant
-		return climber.isMotionMagicDone(distance) || startTime + 5 < Timer.getFPGATimestamp();
+		return startTime + Constants.timeoutRaiseClimber < Timer.getFPGATimestamp()
+			|| climber.isMotionMagicDone(distance);
 	}
 }

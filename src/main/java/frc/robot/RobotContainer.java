@@ -38,7 +38,7 @@ public class RobotContainer {
 
 	
 	// autonomous command
-	private final DriveForwardTimed m_driveForwardTimed = new DriveForwardTimed(driveTrain, Constants.DRIVE_FORWARD_TIME);
+	private final DriveForwardTimed m_driveForwardTimed = new DriveForwardTimed(driveTrain, Constants.DRIVE_FORWARD_TIME, Constants.AUTONOMOUS_SPEED);
 	
 	//climber command
 	//what goes here???
