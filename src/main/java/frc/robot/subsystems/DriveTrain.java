@@ -15,6 +15,7 @@ import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
 	
+	// TODO: make sure these are all correct - i think that might be why the X and Y on the controller are reversed
 	private WPI_TalonFX leftFront = new WPI_TalonFX(Constants.LEFT_FRONT);
 	private WPI_TalonFX rightFront = new WPI_TalonFX(Constants.RIGHT_FRONT);
 	private WPI_TalonFX leftBack = new WPI_TalonFX(Constants.LEFT_BACK);

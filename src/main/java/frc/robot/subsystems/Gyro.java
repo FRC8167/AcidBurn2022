@@ -13,9 +13,9 @@ public class Gyro extends SubsystemBase {
 	
 	public Gyro() {
 		gyroSensor = new ADXRS450_Gyro();
-		// TODO: CALLING THIS BREAKS LITERALLY EVERYTHING!!!
-		// FINDING THIS OUT TOOK LITERALLY 6 HOURS!!!!
-		// WHYYYYYYYYYY??!??!?!?!?
+		// this no longer breaks everything
+		// but if for some reason the robot just doesnt do anything try commenting this out first
+		// save the 6 hours it took us to fix it
 		gyroSensor.calibrate();
 	}
 	
