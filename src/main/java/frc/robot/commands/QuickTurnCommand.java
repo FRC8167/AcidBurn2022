@@ -5,7 +5,9 @@
 package frc.robot.commands;
 
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Gyro;
 
@@ -15,6 +17,7 @@ public class QuickTurnCommand extends CommandBase {
 	
 	private final double turnAngle;
 	private final double initialAngle;
+	private double startTimeTurn = 0;
 	
 	/** Creates a new QuickTurnCommand. */
 	public QuickTurnCommand(DriveTrain driveTrain, Gyro gyroSubsystem, int desiredTurnAngle) {
@@ -32,13 +35,21 @@ public class QuickTurnCommand extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		
+		startTimeTurn = Timer.getFPGATimestamp();
 	}
 	
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		driveTrain.arcadeDrive(0.0, 0.1);
+		double turnError = gyro.getAngle() -(initialAngle + turnAngle);
+		
+		double turnPower = turnError * Constants.turnDegreeProportion;
+		if (Math.abs(turnError) > 90) {
+			turnPower = turnPower * 0.75;  //for large angles we tune it down a tad  could do 0.5
+		}
+		turnPower = Math.min(1, turnPower);
+		turnPower = Math.max(-1, turnPower);
+		driveTrain.arcadeDrive(0.0, turnPower);
 	}
 	
 	// Called once the command ends or is interrupted.
@@ -48,6 +59,13 @@ public class QuickTurnCommand extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return gyro.getAngle() > initialAngle + turnAngle;
+		if (Math.abs(gyro.getAngle() -(initialAngle + turnAngle)) < 3) {
+			return true;
+		}
+		if((startTimeTurn + Constants.turnDegreeTimeout) < Timer.getFPGATimestamp()) {
+			return true;
+		}
+		return false;
+		//gyro.getAngle() > initialAngle + turnAngle;
 	}
 }

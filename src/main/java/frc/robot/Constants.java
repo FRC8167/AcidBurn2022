@@ -23,10 +23,11 @@ public final class Constants {
 	public static final int LEFT_BACK = 3;
 	public static final int RIGHT_BACK = 4;
 	public static final int PCM_CAN_ID = 5;
-	public static final int INTAKE_MOTOR = 6;
-	public static final int INDEXER_MOTOR = 7;
-	public static final int LEFT_SHOOTER_MOTOR = 8;
-	public static final int RIGHT_SHOOTER_MOTOR = 9;
+	// public static final int INTAKE_MOTOR = 6;
+	public static final int CLIMBER_MOTOR = 6;
+	public static final int INDEXER_MOTOR = 8;
+	public static final int LEFT_SHOOTER_MOTOR = 9;
+	public static final int RIGHT_SHOOTER_MOTOR = 10;
 	
 	//Gamepad Controller
 	public static final int GP_LEFT_X_AXIS = 0; //may not be needed in 2022
@@ -42,7 +43,9 @@ public final class Constants {
 	public static final double INDEX_SPEED = 0.3;  //NEEDS PROTOTYPE TESTING
 	public static final double SHOOTER_SPINUP_SPEED = 0.75;
 	public static final double SHOOTER_SPINDOWN_SPEED = 0.4;
+	public static final double CLIMBER_RAISE_SPEED = 0.25;
 	
+	// TODO: all of these are wrong
 	public static int gamepadAButton = 1;
 	public static int gamepadBButton = 2;
 	public static int gamepadXButton = 3;
@@ -62,4 +65,9 @@ public final class Constants {
 	public static final double distancePerEncoderPulseMeters = chassisWheelCircumferenceMeters * chassisGearRatio / encoderCPR;
 	public static final int turnAutoSlotIDx = 1;
 	public static final int PID_TURN = 1;
+	public static final double turnDegreeProportion = 0.0042;  //may need to tweak
+	public static final double turnDegreeTimeout = 3;  //can change this
+
+	public static final double kMetertoFalconSensorUnit = 45812.56;  //needs adjustment for usage with Climber???
+	public static final double kSensorUnitsPerRotation = 2048;
 }

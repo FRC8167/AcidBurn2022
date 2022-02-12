@@ -10,5 +10,8 @@ public abstract interface InputController {
 	public abstract double getTurnSpeed();
 	
 	// The button to use for quick turn
-	public abstract Button getQuickTurnButton();
+	public abstract Button getQuickTurnRightButton();
+
+	//The button to use for raising the climber
+	public abstract Button getMotionMagicRaiseClimberButton();
 }

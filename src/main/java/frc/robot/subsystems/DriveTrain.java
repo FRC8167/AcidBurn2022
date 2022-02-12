@@ -4,9 +4,9 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
+// import com.ctre.phoenix.motorcontrol.ControlMode;
 // import com.ctre.phoenix.motorcontrol.InvertType;
-// import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -14,9 +14,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
-	//TODO: look up "velocity mode" - compensates for slightly different speeds
-	//TODO: look up "position mode" (USE THIS??? v good for autonomous)
-	//TODO: look up motion profiling
 	
 	private WPI_TalonFX leftFront = new WPI_TalonFX(Constants.LEFT_FRONT);
 	private WPI_TalonFX rightFront = new WPI_TalonFX(Constants.RIGHT_FRONT);
@@ -27,13 +24,20 @@ public class DriveTrain extends SubsystemBase {
 
 	/** Creates a new DriveTrain. */
 	public DriveTrain() {
+		//Set all motors to factory defaults for safety
 		leftFront.configFactoryDefault();
 		rightFront.configFactoryDefault();
 		leftBack.configFactoryDefault();
 		rightBack.configFactoryDefault();
-		
-		leftFront.set(ControlMode.PercentOutput, 0);
-		rightFront.set(ControlMode.PercentOutput, 0);
+
+		//Set all motors to brake mode
+		leftFront.setNeutralMode(NeutralMode.Brake);
+		rightFront.setNeutralMode(NeutralMode.Brake);
+		leftBack.setNeutralMode(NeutralMode.Brake);
+		rightBack.setNeutralMode(NeutralMode.Brake);
+
+		leftBack.follow(leftFront);
+		rightBack.follow(rightFront);
 	}
 	
 	public void arcadeDrive(double throttle, double rotation) {

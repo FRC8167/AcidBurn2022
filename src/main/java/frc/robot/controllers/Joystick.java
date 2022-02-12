@@ -21,8 +21,13 @@ public class Joystick implements InputController {
 	}
 	
 	@Override
-	public Button getQuickTurnButton() {
+	public Button getQuickTurnRightButton() {
 		// TODO Auto-generated method stub (Joystick.getQuickTurnButton)
+		return null;
+	}
+
+	@Override
+	public Button getMotionMagicRaiseClimberButton() {
 		return null;
 	}
 }

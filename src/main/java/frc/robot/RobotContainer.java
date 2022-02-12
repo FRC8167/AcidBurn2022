@@ -5,10 +5,12 @@
 package frc.robot;
 
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Gyro;
+// import frc.robot.subsystems.Gyro;
+import frc.robot.subsystems.Climber;
+// import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveForwardTimed;
-import frc.robot.commands.QuickTurnCommand;
+import frc.robot.commands.ClimberCommands.RaiseClimberDistance;
 import frc.robot.controllers.DualXbox;
 import frc.robot.controllers.InputController;
 import frc.robot.commands.ArcadeDrive;
@@ -22,18 +24,22 @@ import frc.robot.commands.ArcadeDrive;
 public class RobotContainer {
 	//Subsystems
 	private DriveTrain driveTrain = new DriveTrain();
-	private Gyro gyro = new Gyro();
+	// private Gyro gyro = new Gyro();
+	
 	// public final Indexer m_indexer = new Indexer();
 	// private final Intake m_intake = new Intake();
 	// private final Shooter m_shooter = new Shooter();
-	// private final Climber m_climber = new Climber();
+	private final Climber m_climber = new Climber();
 	
 	// controller
 	private InputController controller;
+
 	
 	// autonomous command
 	private final DriveForwardTimed m_driveForwardTimed = new DriveForwardTimed(driveTrain, Constants.DRIVE_FORWARD_TIME);
 	
+	//climber command
+	//what goes here???
 	
 	public RobotContainer() {
 		// this can be easily changed to anything supporting the InputController interface
@@ -70,14 +76,13 @@ public class RobotContainer {
 		// //Dedex Cargo toward intake
 		// new JoystickButton(driverJoystick, Constants.gamepadBButton)
 		// .whileHeld(() -> m_indexer.outdexCargo(Constants.INDEX_SPEED))
-		// .whenReleased(() -> m_indexer.stop());
+		// .whenReleased(() -> m_indexer.stop()); */
 		
-		// //SpinUp for Shooting
-		// new JoystickButton(operatorJoystick, Constants.gamepadXButton)
-		// .whileHeld(() -> m_shooter.spinUp(Constants.SHOOTER_SPINUP_SPEED))
-		// .whenReleased(() -> m_shooter.stop());
+		// Raise Climber
+		////
 		
-		// //SpinDown for Shooting
+		
+		/*/ //SpinDown for Shooting
 		// new JoystickButton(operatorJoystick, Constants.gamepadYButton)
 		// .whileHeld(() -> m_shooter.spinDown(Constants.SHOOTER_SPINDOWN_SPEED))
 		// .whenReleased(() -> m_shooter.stop());
@@ -90,7 +95,9 @@ public class RobotContainer {
 		
 		// NOTE: this is how buttons work in the new InputController interface
 		//90 RIGHT Turn
-		controller.getQuickTurnButton().whenPressed(new QuickTurnCommand(driveTrain, gyro, 90));
+		// controller.getQuickTurnRightButton().whenPressed(new QuickTurnCommand(driveTrain, gyro, 90));
+		//raise climber some distance
+		controller.getMotionMagicRaiseClimberButton().whenPressed(new RaiseClimberDistance(m_climber, 1000000));
 	}
 	
 	// returns the command to run in autonomous

@@ -4,21 +4,23 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants;
 
+
 public class DualXbox implements InputController {
 	
 	// two xbox controllers - one for the driver and one for the operator
 	private final Joystick driverJoystick;
 	private final Joystick operatorJoystick;
 	
-	private final JoystickButton driverQuickTurnButton;
+	private final JoystickButton driverQuickTurnRightButton;
+	private final JoystickButton operatorMotionMagicRaiseClimberButton;
 	
 	// the driver is in charge of actually driving the robot around from place to place
 	// the operator is in charge of controlling the robot's intake and shooter and stuff
 	public DualXbox (int driverPort, int operatorPort) {
 		driverJoystick = new Joystick(driverPort);
 		operatorJoystick = new Joystick(operatorPort);
-		
-		driverQuickTurnButton = new JoystickButton(operatorJoystick, Constants.gamepadAButton);
+		operatorMotionMagicRaiseClimberButton = new JoystickButton(operatorJoystick, Constants.gamepadXButton);
+		driverQuickTurnRightButton = new JoystickButton(operatorJoystick, Constants.gamepadAButton);
 	}
 	
 	@Override
@@ -32,7 +34,12 @@ public class DualXbox implements InputController {
 	}
 	
 	@Override
-	public JoystickButton getQuickTurnButton() {
-		return driverQuickTurnButton;
+	public JoystickButton getQuickTurnRightButton() {
+		return driverQuickTurnRightButton;
+	}
+
+	@Override
+	public JoystickButton getMotionMagicRaiseClimberButton() {
+		return operatorMotionMagicRaiseClimberButton;
 	}
 }
