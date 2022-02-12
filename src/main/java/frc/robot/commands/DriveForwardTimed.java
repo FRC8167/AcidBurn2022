@@ -11,14 +11,13 @@ import frc.robot.subsystems.DriveTrain;
 public class DriveForwardTimed extends CommandBase {
 	private final DriveTrain driveTrain;
 	
-	private final Timer timer;
 	private final double timeToDrive;
+	private double startTime;
 	private final double speed;
 	
 	// Creates a new DriveForwardTimed.
 	public DriveForwardTimed(DriveTrain driveTrain, double driveTime, double speed) {
 		this.driveTrain = driveTrain;
-		this.timer = new Timer();
 		this.timeToDrive = driveTime;
 		this.speed = speed;
 		
@@ -28,8 +27,7 @@ public class DriveForwardTimed extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		timer.reset();
-		timer.start();
+		startTime = Timer.getFPGATimestamp();
 	}
 	
 	// Called every time the scheduler runs while the command is scheduled.
@@ -48,6 +46,6 @@ public class DriveForwardTimed extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return timer.get() < timeToDrive;
+		return startTime + timeToDrive < Timer.getFPGATimestamp();
 	}
 }
