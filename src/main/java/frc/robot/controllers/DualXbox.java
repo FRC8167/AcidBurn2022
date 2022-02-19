@@ -13,14 +13,17 @@ public class DualXbox implements InputController {
 	
 	private final JoystickButton driverQuickTurnRightButton;
 	private final JoystickButton operatorMotionMagicRaiseClimberButton;
+	private final JoystickButton operatorBeltTurnButton;
 	
 	// the driver is in charge of actually driving the robot around from place to place
 	// the operator is in charge of controlling the robot's intake and shooter and stuff
 	public DualXbox (int driverPort, int operatorPort) {
 		driverJoystick = new Joystick(driverPort);
 		operatorJoystick = new Joystick(operatorPort);
-		operatorMotionMagicRaiseClimberButton = new JoystickButton(operatorJoystick, Constants.gamepadXButton);
+		
 		driverQuickTurnRightButton = new JoystickButton(operatorJoystick, Constants.gamepadAButton);
+		operatorMotionMagicRaiseClimberButton = new JoystickButton(operatorJoystick, Constants.gamepadXButton);
+		operatorBeltTurnButton = new JoystickButton(operatorJoystick, Constants.gamepadBButton);
 	}
 	
 	@Override
@@ -41,5 +44,10 @@ public class DualXbox implements InputController {
 	@Override
 	public JoystickButton getMotionMagicRaiseClimberButton() {
 		return operatorMotionMagicRaiseClimberButton;
+	}
+	
+	@Override
+	public JoystickButton getBeltTurnButton() {
+		return operatorBeltTurnButton;
 	}
 }

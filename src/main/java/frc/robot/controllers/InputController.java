@@ -14,4 +14,7 @@ public abstract interface InputController {
 
 	//The button to use for raising the climber
 	public abstract Button getMotionMagicRaiseClimberButton();
+	
+	//the button to use for moving the belt
+	public abstract Button getBeltTurnButton();
 }

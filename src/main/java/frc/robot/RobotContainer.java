@@ -6,13 +6,15 @@ package frc.robot;
 
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Gyro;
+import frc.robot.subsystems.BeltBallThing;
 // import frc.robot.subsystems.Gyro;
 import frc.robot.subsystems.Climber;
 // import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveForwardTimed;
 import frc.robot.commands.QuickTurnCommand;
-import frc.robot.commands.ClimberCommands.RaiseClimberDistance;
+import frc.robot.commands.RaiseClimberDistance;
+import frc.robot.commands.TurnBeltDistance;
 import frc.robot.controllers.DualXbox;
 import frc.robot.controllers.InputController;
 import frc.robot.commands.ArcadeDrive;
@@ -32,13 +34,14 @@ public class RobotContainer {
 	// private final Intake m_intake = new Intake();
 	// private final Shooter m_shooter = new Shooter();
 	private final Climber m_climber = new Climber();
+	private final BeltBallThing belt = new BeltBallThing();
 	
 	// controller
 	private InputController controller;
 
 	
 	// autonomous command
-	private final DriveForwardTimed m_driveForwardTimed = new DriveForwardTimed(driveTrain, Constants.DRIVE_FORWARD_TIME);
+	private final DriveForwardTimed m_driveForwardTimed = new DriveForwardTimed(driveTrain, Constants.DRIVE_FORWARD_TIME, Constants.AUTONOMOUS_SPEED);
 	
 	//climber command
 	//what goes here???
@@ -101,6 +104,8 @@ public class RobotContainer {
 		
 		//raise climber some distance
 		controller.getMotionMagicRaiseClimberButton().whenPressed(new RaiseClimberDistance(m_climber, 1000000));
+		
+		controller.getBeltTurnButton().whenPressed(new TurnBeltDistance(belt, 1000000));
 	}
 	
 	// returns the command to run in autonomous

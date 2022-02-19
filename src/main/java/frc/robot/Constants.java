@@ -22,12 +22,12 @@ public final class Constants {
 	public static final int RIGHT_FRONT = 2;
 	public static final int LEFT_BACK = 3;
 	public static final int RIGHT_BACK = 4;
-	public static final int PCM_CAN_ID = 5;
-	// public static final int INTAKE_MOTOR = 6;
+	// public static final int PCM_CAN_ID = 5;
 	public static final int CLIMBER_MOTOR = 6;
-	public static final int INDEXER_MOTOR = 8;
-	public static final int LEFT_SHOOTER_MOTOR = 9;
-	public static final int RIGHT_SHOOTER_MOTOR = 10;
+	public static final int INTAKE_MOTOR = 7;
+	// public static final int INDEXER_MOTOR = 8;
+	// public static final int LEFT_SHOOTER_MOTOR = 9;
+	// public static final int RIGHT_SHOOTER_MOTOR = 10;
 	
 	//Gamepad Controller
 	public static final int GP_LEFT_X_AXIS = 0; //may not be needed in 2022

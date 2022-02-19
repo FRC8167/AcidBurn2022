@@ -6,7 +6,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
 
 public class DriveForwardTimed extends CommandBase {
@@ -17,17 +16,6 @@ public class DriveForwardTimed extends CommandBase {
 	private final double speed;
 	
 	// Creates a new DriveForwardTimed.
-	public DriveForwardTimed(DriveTrain driveTrain, double driveTime) {
-		// TODO: can i factor this out without java complaining abt uninitialiszed final variables?
-		// this.DriveForwardTimed(driveTrain, driveTime, Constants.AUTONOMOUS_SPEED);
-		this.driveTrain = driveTrain;
-		this.timer = new Timer();
-		this.timeToDrive = driveTime;
-		this.speed = Constants.AUTONOMOUS_SPEED;
-		
-		addRequirements(driveTrain);
-	}
-	
 	public DriveForwardTimed(DriveTrain driveTrain, double driveTime, double speed) {
 		this.driveTrain = driveTrain;
 		this.timer = new Timer();

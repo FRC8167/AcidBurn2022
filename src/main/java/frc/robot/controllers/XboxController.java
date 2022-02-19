@@ -1,6 +1,7 @@
 package frc.robot.controllers;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants;
 // import frc.robot.commands.ClimberCommands.MotionMagicRaiseClimber;
@@ -39,5 +40,11 @@ public class XboxController implements InputController {
 	@Override
 	public JoystickButton getMotionMagicRaiseClimberButton() {
 		return motionMagicRaiseClimberButton;
+	}
+
+	@Override
+	public Button getBeltTurnButton() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
