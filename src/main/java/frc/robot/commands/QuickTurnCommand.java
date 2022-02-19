@@ -43,7 +43,7 @@ public class QuickTurnCommand extends CommandBase {
 	public void execute() {
 		double turnError = gyro.getAngle() -(initialAngle + turnAngle);
 		
-		double turnPower = turnError * Constants.turnDegreeProportion;
+		double turnPower = turnError * Constants.quickTurnProportion;
 		if (Math.abs(turnError) > 90) {
 			turnPower = turnPower * 0.75;  //for large angles we tune it down a tad  could do 0.5
 		}
@@ -64,10 +64,6 @@ public class QuickTurnCommand extends CommandBase {
 		if (Math.abs(gyro.getAngle() - (initialAngle + turnAngle)) < 3) {
 			return true;
 		}
-		if((startTimeTurn + Constants.turnDegreeTimeout) < Timer.getFPGATimestamp()) {
-			return true;
-		}
-		return false;
-		//gyro.getAngle() > initialAngle + turnAngle;
+		return startTimeTurn + Constants.timeoutQuickTurn < Timer.getFPGATimestamp();
 	}
 }
