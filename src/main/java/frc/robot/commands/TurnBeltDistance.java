@@ -10,8 +10,8 @@ import frc.robot.subsystems.BeltBallThing;
 
 public class TurnBeltDistance extends CommandBase {
 	// TODO: put these in Constants
-	private static final int maxSpeed = 30000;
-	private static final int maxAccelleration = 3000;
+	private static final int maxSpeed = 20000;
+	private static final int maxAccelleration = 8000;
 	
 	private final BeltBallThing belt;
 	private final int distance;
