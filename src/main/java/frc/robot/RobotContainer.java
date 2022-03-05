@@ -12,6 +12,7 @@ import frc.robot.subsystems.Climber;
 // import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveForwardTimed;
+import frc.robot.commands.MoveBelt;
 import frc.robot.commands.QuickTurnCommand;
 import frc.robot.commands.RaiseClimberDistance;
 import frc.robot.commands.TurnBeltDistance;
@@ -106,6 +107,9 @@ public class RobotContainer {
 		controller.getMotionMagicRaiseClimberButton().whenPressed(new RaiseClimberDistance(m_climber, 1000000));
 		
 		controller.getBeltTurnButton().whenPressed(new TurnBeltDistance(belt, 1000000));
+		
+		controller.getBeltForwardButton().whileHeld(new MoveBelt(belt, 0.2));
+		controller.getBeltBackwardButton().whileHeld(new MoveBelt(belt, -0.1));
 	}
 	
 	// returns the command to run in autonomous

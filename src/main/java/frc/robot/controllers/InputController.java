@@ -17,4 +17,8 @@ public abstract interface InputController {
 	
 	//the button to use for moving the belt
 	public abstract Button getBeltTurnButton();
+	
+	//the buttons for manually moving the belt
+	public abstract Button getBeltForwardButton();
+	public abstract Button getBeltBackwardButton();
 }

@@ -10,8 +10,8 @@ import frc.robot.subsystems.BeltBallThing;
 
 public class TurnBeltDistance extends CommandBase {
 	// TODO: put these in Constants
-	private static final int maxSpeed = 20000;
-	private static final int maxAccelleration = 8000;
+	private static final int maxSpeed = 5000;
+	private static final int maxAccelleration = 800;
 	
 	private final BeltBallThing belt;
 	private final int distance;
@@ -20,6 +20,7 @@ public class TurnBeltDistance extends CommandBase {
 	public TurnBeltDistance(BeltBallThing belt, int distance) {
 		this.belt = belt;
 		this.distance = distance;
+		
 		addRequirements(this.belt);
 	}
 	
@@ -44,6 +45,8 @@ public class TurnBeltDistance extends CommandBase {
 	@Override
 	public boolean isFinished() {
 		// TODO: put this '5' in a constant
-		return belt.isMotionMagicDone(distance) || startTime + 20 < Timer.getFPGATimestamp();
-	}
+		return belt.isMotionMagicDone(distance) 
+			|| startTime + 20 < Timer.getFPGATimestamp()
+			|| belt.isBallInTheThing(); // TODO: maybe move this to separate command
+	} 
 }

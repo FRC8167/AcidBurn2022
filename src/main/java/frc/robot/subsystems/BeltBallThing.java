@@ -10,18 +10,22 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class BeltBallThing extends SubsystemBase {
-	public final WPI_TalonFX intakeMotor;
+	private final WPI_TalonFX intakeMotor;
+	private DigitalInput intakeSwitch;
 	
 	/* constructor */
 	public BeltBallThing() {
 		// creates and configures the climber motor
 		intakeMotor = new WPI_TalonFX(Constants.INTAKE_MOTOR);
 		configmotor();
+		
+		intakeSwitch = new DigitalInput(0); //TODO: put 0 in constants or sm
 		
 		//Important:  Must have zeroSensors() function
 		zeroSensors();
@@ -67,8 +71,13 @@ public class BeltBallThing extends SubsystemBase {
 		intakeMotor.setSelectedSensorPosition(0, Constants.kpIDLoopIDx, Constants.pidLoopTimeout);
 	}
 	
+	public boolean isBallInTheThing() {
+		System.out.println(intakeSwitch.get());
+		return !intakeSwitch.get(); // TODO: test
+	}
 	
-	public void testClimber(double power) {
+	
+	public void drivePercentOutput(double power) {
 		intakeMotor.set(ControlMode.PercentOutput, power);
 	}
 	

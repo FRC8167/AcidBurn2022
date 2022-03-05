@@ -47,4 +47,16 @@ public class XboxController implements InputController {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Button getBeltForwardButton() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Button getBeltBackwardButton() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
