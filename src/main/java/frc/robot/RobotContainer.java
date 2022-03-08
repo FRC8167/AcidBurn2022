@@ -15,7 +15,7 @@ import frc.robot.commands.DriveForwardTimed;
 import frc.robot.commands.MoveBelt;
 import frc.robot.commands.QuickTurnCommand;
 import frc.robot.commands.RaiseClimberDistance;
-import frc.robot.commands.TurnBeltDistance;
+import frc.robot.commands.IntakeOuttakeBall;
 import frc.robot.controllers.DualXbox;
 import frc.robot.controllers.InputController;
 import frc.robot.commands.ArcadeDrive;
@@ -93,7 +93,7 @@ public class RobotContainer {
 		// .whileHeld(() -> m_shooter.spinDown(Constants.SHOOTER_SPINDOWN_SPEED))
 		// .whenReleased(() -> m_shooter.stop());
 		
-		// // this should not be in here
+		// Setup SmartDashboard options
 		// m_chooser.addOption("Drive Forward Timed", new DriveForwardTimed(m_driveTrain));
 		// m_chooser.setDefaultOption("Drive Forward Timed", new DriveForwardTimed(m_driveTrain));
 		// SmartDashboard.putData(m_chooser);
@@ -106,15 +106,16 @@ public class RobotContainer {
 		//raise climber some distance
 		controller.getMotionMagicRaiseClimberButton().whenPressed(new RaiseClimberDistance(m_climber, 1000000));
 		
-		controller.getBeltTurnButton().whenPressed(new TurnBeltDistance(belt, 1000000));
+		controller.getBeltTurnButton().whenPressed(new IntakeOuttakeBall(belt, 1000000));
 		
-		controller.getBeltForwardButton().whileHeld(new MoveBelt(belt, 0.2));
-		controller.getBeltBackwardButton().whileHeld(new MoveBelt(belt, -0.1));
+		controller.getBeltForwardButton().whileHeld(new MoveBelt(belt, 0.3));
+		controller.getBeltBackwardButton().whileHeld(new MoveBelt(belt, -0.15));
 	}
 	
 	// returns the command to run in autonomous
 	public Command getAutonomousCommand() {
 		// TODO: actual autonomous code
+		//return m_choose.getSelected();
 		return m_driveForwardTimed;
 	}
 	

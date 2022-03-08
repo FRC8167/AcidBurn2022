@@ -8,16 +8,17 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BeltBallThing;
 
-public class TurnBeltDistance extends CommandBase {
+public class IntakeOuttakeBall extends CommandBase {
 	// TODO: put these in Constants
-	private static final int maxSpeed = 5000;
-	private static final int maxAccelleration = 800;
+	// private static final int maxSpeed = 3000;
+	// private static final int maxAccelleration = 2000;
 	
 	private final BeltBallThing belt;
 	private final int distance;
 	private double startTime;
+	private boolean isLaunchMode;
 	
-	public TurnBeltDistance(BeltBallThing belt, int distance) {
+	public IntakeOuttakeBall(BeltBallThing belt, int distance) {
 		this.belt = belt;
 		this.distance = distance;
 		
@@ -28,7 +29,14 @@ public class TurnBeltDistance extends CommandBase {
 	@Override
 	public void initialize() {
 		startTime = Timer.getFPGATimestamp();
-		belt.setMotionMagic(distance, maxSpeed, maxAccelleration);
+		isLaunchMode = belt.isBallInTheThing();
+		
+		if (isLaunchMode) {
+			belt.setMotionMagic(20000, 5000, 2500);
+		}
+		else {
+			belt.setMotionMagic(100000, 2500, 1000);
+		}
 	}
 	
 	// Called every time the scheduler runs while the command is scheduled.
@@ -46,7 +54,7 @@ public class TurnBeltDistance extends CommandBase {
 	public boolean isFinished() {
 		// TODO: put this '5' in a constant
 		return belt.isMotionMagicDone(distance) 
-			|| startTime + 20 < Timer.getFPGATimestamp()
-			|| belt.isBallInTheThing(); // TODO: maybe move this to separate command
+			|| startTime + 5 < Timer.getFPGATimestamp()
+			|| (belt.isBallInTheThing() && !isLaunchMode); // TODO: maybe move this to separate command
 	} 
 }
