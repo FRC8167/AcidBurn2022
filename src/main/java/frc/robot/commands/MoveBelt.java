@@ -1,21 +1,32 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BeltBallThing;
 
 public class MoveBelt extends CommandBase {
 	private final BeltBallThing intake;
 	private final double power;
+	private final double time;
+	private double startTime;
 	
 	public MoveBelt(BeltBallThing intake, double power) {
 		this.intake = intake;
 		this.power = power;
+		this.time = Double.POSITIVE_INFINITY;
+		addRequirements(this.intake);
+	}
+	
+	public MoveBelt(BeltBallThing intake, double power, double time) {
+		this.intake = intake;
+		this.power = power;
+		this.time = time;
 		addRequirements(this.intake);
 	}
 	
 	@Override
 	public void initialize() {
-		
+		this.startTime = Timer.getFPGATimestamp();
 	}
 	
 	@Override
@@ -25,7 +36,7 @@ public class MoveBelt extends CommandBase {
 	
 	@Override
 	public boolean isFinished() {
-		return false;
+		return startTime + time < Timer.getFPGATimestamp();
 	}
 	
 	@Override

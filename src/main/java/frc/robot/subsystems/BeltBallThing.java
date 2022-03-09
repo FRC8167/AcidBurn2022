@@ -72,8 +72,7 @@ public class BeltBallThing extends SubsystemBase {
 	}
 	
 	public boolean isBallInTheThing() {
-		System.out.println(intakeSwitch.get());
-		return !intakeSwitch.get(); // TODO: test
+		return !intakeSwitch.get();
 	}
 	
 	

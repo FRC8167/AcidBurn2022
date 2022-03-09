@@ -11,6 +11,7 @@ import frc.robot.subsystems.BeltBallThing;
 import frc.robot.subsystems.Climber;
 // import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.DriveForwardTimed;
 import frc.robot.commands.MoveBelt;
 import frc.robot.commands.QuickTurnCommand;
@@ -40,10 +41,6 @@ public class RobotContainer {
 	// controller
 	private InputController controller;
 
-	
-	// autonomous command
-	private final DriveForwardTimed m_driveForwardTimed = new DriveForwardTimed(driveTrain, Constants.DRIVE_FORWARD_TIME, Constants.AUTONOMOUS_SPEED);
-	
 	//climber command
 	//what goes here???
 	
@@ -104,7 +101,7 @@ public class RobotContainer {
 		controller.getQuickTurnRightButton().whenPressed(new QuickTurnCommand(driveTrain, gyro, 90));
 		
 		//raise climber some distance
-		controller.getMotionMagicRaiseClimberButton().whenPressed(new RaiseClimberDistance(m_climber, 1000000));
+		controller.getMotionMagicRaiseClimberButton().whenPressed(new RaiseClimberDistance(m_climber, 221184));
 		
 		controller.getBeltTurnButton().whenPressed(new IntakeOuttakeBall(belt, 1000000));
 		
@@ -116,7 +113,10 @@ public class RobotContainer {
 	public Command getAutonomousCommand() {
 		// TODO: actual autonomous code
 		//return m_choose.getSelected();
-		return m_driveForwardTimed;
+		return new SequentialCommandGroup(
+			new MoveBelt(belt, 0.5, 5),
+			new DriveForwardTimed(driveTrain, Constants.DRIVE_FORWARD_TIME, Constants.AUTONOMOUS_SPEED)
+		);
 	}
 	
 	public void runTest() {
