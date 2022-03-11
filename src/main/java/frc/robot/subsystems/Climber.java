@@ -14,17 +14,22 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+// NOTE: THE CLIMBER MUST BE LOWERED WHEN STARTING THE ROBOT!!!
 public class Climber extends SubsystemBase {
-	public final WPI_TalonFX climberMotor;
+	public static final double approxTicksPerInch = 8137.74;
+	public static final double maxExtensionInches = 16;
+	public static final double maxExtensionTicks = maxExtensionInches * approxTicksPerInch - 100;
+	private final WPI_TalonFX climberMotor;
 	
 	/* constructor */
 	public Climber() {
 		// creates and configures the climber motor
 		climberMotor = new WPI_TalonFX(Constants.CLIMBER_MOTOR);
+		
 		configmotor();
 		
-		//Important:  Must have zeroSensors() function
-		zeroSensors();
+		// zeros the motor encoder
+		climberMotor.setSelectedSensorPosition(0, Constants.kpIDLoopIDx, Constants.pidLoopTimeout);
 	}
 	
 	private void configmotor() {
@@ -50,7 +55,7 @@ public class Climber extends SubsystemBase {
 		climberMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 30);
 		climberMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10,30);
 		
-		climberMotor.setInverted(false);
+		climberMotor.setInverted(true);
 		climberMotor.setSensorPhase(false);
 		
 		climberMotor.configNominalOutputForward(0, 30);
@@ -59,12 +64,6 @@ public class Climber extends SubsystemBase {
 		climberMotor.configPeakOutputReverse(-1, 30);
 		
 		climberMotor.selectProfileSlot(Constants.kSlotIDx, Constants.kpIDLoopIDx);
-	}
-	
-	//This is used to reset (or zero) the Quadrature encoders built into the Falcon 500 motors
-	public void zeroSensors() {
-		// TODO: do we need Constants.kpIDLoopIDx???
-		climberMotor.setSelectedSensorPosition(0, Constants.kpIDLoopIDx, Constants.pidLoopTimeout);
 	}
 	
 	
@@ -81,16 +80,19 @@ public class Climber extends SubsystemBase {
 		climberMotor.set(ControlMode.MotionMagic, distance);
 	}
 	
-	public boolean isMotionMagicDone (double targetDistanceInNativeUnit) {
-		double sensorDistance = climberMotor.getSelectedSensorPosition(0);
-		double percentError = 100 * (targetDistanceInNativeUnit - sensorDistance) / targetDistanceInNativeUnit;
+	// public boolean isMotionMagicDone (double targetDistanceInNativeUnit) {
+	// 	double sensorDistance = climberMotor.getSelectedSensorPosition(0);
+	// 	double percentError = 100 * Math.abs(targetDistanceInNativeUnit - sensorDistance) / targetDistanceInNativeUnit;
 		
-		return percentError < 0.3 || percentError < 0;
-	}
+	// 	return sensorDistance < 0 || sensorDistance > maxExtensionTicks || percentError < 0.5;
+	// }
 	
 	public void stop() {
-		climberMotor.getSensorCollection().setIntegratedSensorPosition(0, Constants.pidLoopTimeout);
 		climberMotor.set(ControlMode.PercentOutput, 0);
+	}
+	
+	public double getPosition() {
+		return climberMotor.getSelectedSensorPosition(0);
 	}
 	
 	@Override

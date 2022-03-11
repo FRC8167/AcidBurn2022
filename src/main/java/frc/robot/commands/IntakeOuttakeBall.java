@@ -30,9 +30,9 @@ public class IntakeOuttakeBall extends CommandBase {
 	public void initialize() {
 		startTime = Timer.getFPGATimestamp();
 		isLaunchMode = belt.isBallInTheThing();
-		
+		System.out.println(isLaunchMode);
 		if (isLaunchMode) {
-			belt.setMotionMagic(20000, 10000, 5000);
+			belt.setMotionMagic(200000, 30000, 30000);
 		}
 		else {
 			belt.setMotionMagic(100000, 5000, 2000);
@@ -54,7 +54,7 @@ public class IntakeOuttakeBall extends CommandBase {
 	public boolean isFinished() {
 		// TODO: put this '5' in a constant
 		return belt.isMotionMagicDone(distance) 
-			|| startTime + 20 < Timer.getFPGATimestamp()
+			|| startTime + 10 < Timer.getFPGATimestamp()
 			|| (belt.isBallInTheThing() && !isLaunchMode); // TODO: maybe move this to separate command
 	} 
 }

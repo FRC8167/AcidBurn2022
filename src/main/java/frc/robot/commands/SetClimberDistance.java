@@ -9,12 +9,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Climber;
 
-public class RaiseClimberDistance extends CommandBase {
+public class SetClimberDistance extends CommandBase {
 	private final Climber climber;
-	private final int distance;
+	private final double distance;
 	private double startTime;
 	
-	public RaiseClimberDistance(Climber climber, int distance) {
+	public SetClimberDistance(Climber climber, double distance) {
 		this.climber = climber;
 		this.distance = distance;
 		addRequirements(climber);
@@ -24,6 +24,7 @@ public class RaiseClimberDistance extends CommandBase {
 	@Override
 	public void initialize() {
 		startTime = Timer.getFPGATimestamp();
+		
 		climber.setMotionMagic(distance, Constants.maxClimberSpeed, Constants.maxClimberAccelleration);
 	}
 	
@@ -37,10 +38,22 @@ public class RaiseClimberDistance extends CommandBase {
 		climber.stop();
 	}
 	
+	private boolean isMotionMagicDone() {
+		double sensorDistance = climber.getPosition();
+		boolean isGoingUp = distance > sensorDistance;
+		
+		if (!isGoingUp && sensorDistance < 0) return true;
+		if (isGoingUp && sensorDistance > Climber.maxExtensionTicks) return true;
+		
+		double error = sensorDistance - distance;
+		
+		if (!isGoingUp) return error < 200;
+		else return error > 200;
+	}
+	
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return startTime + Constants.timeoutRaiseClimber < Timer.getFPGATimestamp()
-			|| climber.isMotionMagicDone(distance);
+		return startTime + Constants.timeoutRaiseClimber < Timer.getFPGATimestamp() || isMotionMagicDone();
 	}
 }

@@ -70,7 +70,8 @@ public final class Constants {
 
 	public static final double kMetertoFalconSensorUnit = 45812.56;  //needs adjustment for usage with Climber???
 	public static final double kSensorUnitsPerRotation = 2048;
-	public static final int maxClimberSpeed = 10000;
-	public static final int maxClimberAccelleration = 8000;
+	public static final int maxClimberSpeed = 7500;
+	public static final int maxClimberAccelleration = 4000;
 	public static final int timeoutRaiseClimber = 5;
+	public static final double timeoutLowerClimber = 5;
 }

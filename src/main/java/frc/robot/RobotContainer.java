@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.DriveForwardTimed;
 import frc.robot.commands.MoveBelt;
 import frc.robot.commands.QuickTurnCommand;
-import frc.robot.commands.RaiseClimberDistance;
+import frc.robot.commands.SetClimberDistance;
 import frc.robot.commands.IntakeOuttakeBall;
 import frc.robot.controllers.DualXbox;
 import frc.robot.controllers.InputController;
@@ -100,13 +100,15 @@ public class RobotContainer {
 		//90 RIGHT Turn
 		controller.getQuickTurnRightButton().whenPressed(new QuickTurnCommand(driveTrain, gyro, 90));
 		
-		//raise climber some distance
-		controller.getMotionMagicRaiseClimberButton().whenPressed(new RaiseClimberDistance(m_climber, 221184));
+		//raise climber some distance (5 rotations)
+		controller.getMotionMagicRaiseClimberButton().whenPressed(new SetClimberDistance(m_climber, 122880));
+		//lower climber
+		controller.getMotionMagicLowerClimberButton().whenPressed(new SetClimberDistance(m_climber, 0));
 		
 		controller.getBeltTurnButton().whenPressed(new IntakeOuttakeBall(belt, 1000000));
 		
-		controller.getBeltForwardButton().whileHeld(new MoveBelt(belt, 0.3));
-		controller.getBeltBackwardButton().whileHeld(new MoveBelt(belt, -0.15));
+		controller.getBeltForwardButton().whileHeld(new MoveBelt(belt, 0.5));
+		controller.getBeltBackwardButton().whileHeld(new MoveBelt(belt, -0.2));
 	}
 	
 	// returns the command to run in autonomous
@@ -114,8 +116,8 @@ public class RobotContainer {
 		// TODO: actual autonomous code
 		//return m_choose.getSelected();
 		return new SequentialCommandGroup(
-			new MoveBelt(belt, 0.5, 5),
-			new DriveForwardTimed(driveTrain, Constants.DRIVE_FORWARD_TIME, Constants.AUTONOMOUS_SPEED)
+			new MoveBelt(belt, 0.8, 5),
+			new DriveForwardTimed(driveTrain, 5, Constants.AUTONOMOUS_SPEED)
 		);
 	}
 	
