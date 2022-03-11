@@ -14,9 +14,9 @@ public class SetClimberDistance extends CommandBase {
 	private final double distance;
 	private double startTime;
 	
-	public SetClimberDistance(Climber climber, double distance) {
+	public SetClimberDistance(Climber climber, double distance_inches) {
 		this.climber = climber;
-		this.distance = distance;
+		this.distance = distance_inches * Climber.approxTicksPerInch;
 		addRequirements(climber);
 	}
 	

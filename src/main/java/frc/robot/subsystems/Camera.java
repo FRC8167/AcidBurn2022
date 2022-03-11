@@ -8,12 +8,8 @@ public class Camera extends SubsystemBase {
 	private final UsbCamera camera;
 	
 	public Camera(int usbPortNumber) {
-		this.camera = new UsbCamera("pov: gamer", usbPortNumber);
-		
-		// TODO: put these in constants
-		setFPS(20);
-		setResolution(320, 240);
-		CameraServer.startAutomaticCapture();
+		this.camera = new UsbCamera("pov: gameing", usbPortNumber);
+		CameraServer.addCamera(camera);
 	}
 	
 	public void setFPS(int fps) {
@@ -22,5 +18,13 @@ public class Camera extends SubsystemBase {
 	
 	public void setResolution(int width, int height) {
 		camera.setResolution(width, height);
+	}
+	
+	public void startCapture() {
+		CameraServer.startAutomaticCapture();
+	}
+	
+	public void stopCapture() {
+		CameraServer.removeCamera("pov: gameing");
 	}
 }

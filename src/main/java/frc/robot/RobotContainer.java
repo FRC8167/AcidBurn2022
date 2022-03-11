@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Gyro;
 import frc.robot.subsystems.BeltBallThing;
+import frc.robot.subsystems.Camera;
 // import frc.robot.subsystems.Gyro;
 import frc.robot.subsystems.Climber;
 // import edu.wpi.first.math.util.Units;
@@ -32,22 +33,22 @@ public class RobotContainer {
 	private DriveTrain driveTrain = new DriveTrain();
 	private Gyro gyro = new Gyro();
 	
-	// public final Indexer m_indexer = new Indexer();
-	// private final Intake m_intake = new Intake();
-	// private final Shooter m_shooter = new Shooter();
 	private final Climber m_climber = new Climber();
 	private final BeltBallThing belt = new BeltBallThing();
+	private final Camera camera;
 	
 	// controller
-	private InputController controller;
-
-	//climber command
-	//what goes here???
+	private final InputController controller;
 	
 	public RobotContainer() {
 		// this can be easily changed to anything supporting the InputController interface
 		controller = new DualXbox(Constants.DRIVERJOYSTICK_NUMBER, Constants.OPERATORJOYSTICK_NUMBER);
 		
+		// TODO: put these in constants
+		camera = new Camera(0);
+		
+		camera.setFPS(20);
+		camera.setResolution(320, 240);
 		
 		configureButtonBindings();
 		
@@ -58,51 +59,11 @@ public class RobotContainer {
 	}
 	
 	private void configureButtonBindings() {
-		// idec rn - no more buttons for you
-		//TODO: get all these to work with the new InputController interface
-		/*
-		//Intake Cargo
-		// new JoystickButton(driverJoystick, Constants.kGamepadBumperRight)
-		//	 .whileHeld(() -> m_intake.collect(Constants.INTAKE_SPEED))
-		//	 .whenReleased(() ->m_intake.stop());
-		
-		// //Eject Cargo
-		// new JoystickButton(driverJoystick, Constants.kGamepadBumperLeft)
-		//	 .whileHeld(() -> m_intake.eject(Constants.INTAKE_SPEED))
-		//	 .whenReleased(() ->m_intake.stop());
-		
-		// //Index Cargo toward shooter
-		// new JoystickButton(driverJoystick, Constants.gamepadAButton)
-		// 	.whileHeld(() -> m_indexer.indexCargo(Constants.INDEX_SPEED))
-		// 	.whenReleased(() -> m_indexer.stop());
-		
-		// //Dedex Cargo toward intake
-		// new JoystickButton(driverJoystick, Constants.gamepadBButton)
-		// .whileHeld(() -> m_indexer.outdexCargo(Constants.INDEX_SPEED))
-		// .whenReleased(() -> m_indexer.stop()); */
-		
-		// Raise Climber
-		////
-		
-		
-		/*/ //SpinDown for Shooting
-		// new JoystickButton(operatorJoystick, Constants.gamepadYButton)
-		// .whileHeld(() -> m_shooter.spinDown(Constants.SHOOTER_SPINDOWN_SPEED))
-		// .whenReleased(() -> m_shooter.stop());
-		
-		// Setup SmartDashboard options
-		// m_chooser.addOption("Drive Forward Timed", new DriveForwardTimed(m_driveTrain));
-		// m_chooser.setDefaultOption("Drive Forward Timed", new DriveForwardTimed(m_driveTrain));
-		// SmartDashboard.putData(m_chooser);
-		*/
-		
-		// NOTE: this is how buttons work in the new InputController interface
-		//90 RIGHT Turn
+		// 90 degree RIGHT Turn
 		controller.getQuickTurnRightButton().whenPressed(new QuickTurnCommand(driveTrain, gyro, 90));
 		
 		//raise climber some distance (5 rotations)
-		controller.getMotionMagicRaiseClimberButton().whenPressed(new SetClimberDistance(m_climber, 122880));
-		//lower climber
+		controller.getMotionMagicRaiseClimberButton().whenPressed(new SetClimberDistance(m_climber, 15));
 		controller.getMotionMagicLowerClimberButton().whenPressed(new SetClimberDistance(m_climber, 0));
 		
 		controller.getBeltTurnButton().whenPressed(new IntakeOuttakeBall(belt, 1000000));
