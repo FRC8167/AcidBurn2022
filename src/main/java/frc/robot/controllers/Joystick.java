@@ -30,6 +30,11 @@ public class Joystick implements InputController {
 	public Button getMotionMagicRaiseClimberButton() {
 		return null;
 	}
+	
+	@Override
+	public Button getMotionMagicLowerClimberButton() {
+		return null;
+	}
 
 	@Override
 	public Button getBeltTurnButton() {

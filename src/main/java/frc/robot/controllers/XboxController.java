@@ -12,6 +12,8 @@ public class XboxController implements InputController {
 	
 	private final JoystickButton quickTurnRightButton;
 	private final JoystickButton motionMagicRaiseClimberButton;
+	private final JoystickButton motionMagicLowerClimberButton;
+
 	
 	// two xbox controllers - one with the driver and one with the operator
 	// the driver is in charge of actually driving the robot around from place to place
@@ -20,6 +22,8 @@ public class XboxController implements InputController {
 		joystick = new Joystick(driverPort);
 		quickTurnRightButton = new JoystickButton(joystick, Constants.gamepadAButton);
 		motionMagicRaiseClimberButton = new JoystickButton(joystick, Constants.gamepadXButton);
+		motionMagicLowerClimberButton = new JoystickButton(joystick, Constants.gamepadYButton);
+
 	}
 	
 	@Override
@@ -40,6 +44,11 @@ public class XboxController implements InputController {
 	@Override
 	public JoystickButton getMotionMagicRaiseClimberButton() {
 		return motionMagicRaiseClimberButton;
+	}
+	
+	@Override
+	public JoystickButton getMotionMagicLowerClimberButton() {
+		return motionMagicLowerClimberButton;
 	}
 
 	@Override

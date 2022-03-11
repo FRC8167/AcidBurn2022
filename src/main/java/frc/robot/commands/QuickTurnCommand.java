@@ -51,7 +51,7 @@ public class QuickTurnCommand extends CommandBase {
 		turnPower = Math.max(-1, turnPower);
 		// System.out.println(turnPower);
 		// idk why but arcadeDrive(0, turnPower) doesnt seem to want to work for some reason
-		driveTrain.tankDrive(-turnPower, -turnPower);
+		driveTrain.tankDrive(turnPower, -turnPower);
 	}
 	
 	// Called once the command ends or is interrupted.

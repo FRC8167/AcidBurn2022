@@ -13,6 +13,7 @@ public class DualXbox implements InputController {
 	
 	private final JoystickButton driverQuickTurnRightButton;
 	private final JoystickButton operatorMotionMagicRaiseClimberButton;
+	private final JoystickButton operatorMotionMagicLowerClimberButton;
 	private final JoystickButton operatorBeltTurnButton;
 	
 	private final JoystickButton beltForwardButton;
@@ -27,7 +28,8 @@ public class DualXbox implements InputController {
 		driverQuickTurnRightButton = new JoystickButton(operatorJoystick, Constants.gamepadAButton);
 		operatorMotionMagicRaiseClimberButton = new JoystickButton(operatorJoystick, Constants.gamepadXButton);
 		operatorBeltTurnButton = new JoystickButton(operatorJoystick, Constants.gamepadBButton);
-		
+		operatorMotionMagicLowerClimberButton = new JoystickButton(operatorJoystick, Constants.gamepadYButton);
+
 		//TODO: put these in constants
 		beltForwardButton = new JoystickButton(driverJoystick, 7);
 		beltBackwardButton = new JoystickButton(driverJoystick, 8);
@@ -35,12 +37,12 @@ public class DualXbox implements InputController {
 	
 	@Override
 	public double getForwardSpeed() {
-		return -driverJoystick.getX();
+		return 0.5*driverJoystick.getY();
 	}
 	
 	@Override
 	public double getTurnSpeed() {
-		return driverJoystick.getY();
+		return 0.5*driverJoystick.getX();
 	}
 	
 	@Override
@@ -51,6 +53,11 @@ public class DualXbox implements InputController {
 	@Override
 	public JoystickButton getMotionMagicRaiseClimberButton() {
 		return operatorMotionMagicRaiseClimberButton;
+	}
+	
+	@Override
+	public JoystickButton getMotionMagicLowerClimberButton() {
+		return operatorMotionMagicLowerClimberButton;
 	}
 	
 	@Override
