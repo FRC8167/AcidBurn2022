@@ -2,22 +2,22 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.BeltBallThing;
+import frc.robot.subsystems.Belt;
 
 public class MoveBelt extends CommandBase {
-	private final BeltBallThing intake;
+	private final Belt intake;
 	private final double power;
 	private final double time;
 	private double startTime;
 	
-	public MoveBelt(BeltBallThing intake, double power) {
+	public MoveBelt(Belt intake, double power) {
 		this.intake = intake;
 		this.power = power;
 		this.time = Double.POSITIVE_INFINITY;
 		addRequirements(this.intake);
 	}
 	
-	public MoveBelt(BeltBallThing intake, double power, double time) {
+	public MoveBelt(Belt intake, double power, double time) {
 		this.intake = intake;
 		this.power = power;
 		this.time = time;

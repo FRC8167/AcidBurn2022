@@ -16,7 +16,7 @@ public class SetClimberDistance extends CommandBase {
 	
 	public SetClimberDistance(Climber climber, double distance_inches) {
 		this.climber = climber;
-		this.distance = distance_inches * Climber.approxTicksPerInch;
+		this.distance = distance_inches * Constants.approxClimberTicksPerInch;
 		addRequirements(climber);
 	}
 	
@@ -26,11 +26,15 @@ public class SetClimberDistance extends CommandBase {
 		startTime = Timer.getFPGATimestamp();
 		
 		climber.setMotionMagic(distance, Constants.maxClimberSpeed, Constants.maxClimberAccelleration);
+		
+		System.out.println("climber socmmand i nitealismxed"); // habeo unum strokum
 	}
 	
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
-	public void execute() {}
+	public void execute() {
+		if (distance != 0) System.out.println("running the climber command " + distance);
+	}
 	
 	// Called once the command ends or is interrupted.
 	@Override
@@ -43,7 +47,7 @@ public class SetClimberDistance extends CommandBase {
 		boolean isGoingUp = distance > sensorDistance;
 		
 		if (!isGoingUp && sensorDistance < 0) return true;
-		if (isGoingUp && sensorDistance > Climber.maxExtensionTicks) return true;
+		if (isGoingUp && sensorDistance > Constants.maxExtensionTicks) return true;
 		
 		double error = sensorDistance - distance;
 		
@@ -54,6 +58,7 @@ public class SetClimberDistance extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return startTime + Constants.timeoutRaiseClimber < Timer.getFPGATimestamp() || isMotionMagicDone();
+		if (distance == 0) return false;
+		return startTime + Constants.timeoutSetClimber < Timer.getFPGATimestamp() || isMotionMagicDone();
 	}
 }

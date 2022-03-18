@@ -1,6 +1,7 @@
 package frc.robot.controllers;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants;
 
@@ -8,7 +9,7 @@ import frc.robot.Constants;
 public class DualXbox implements InputController {
 	
 	// two xbox controllers - one for the driver and one for the operator
-	private final Joystick driverJoystick;
+	private final XboxController driverJoystick;
 	private final Joystick operatorJoystick;
 	
 	private final JoystickButton driverQuickTurnRightButton;
@@ -19,37 +20,45 @@ public class DualXbox implements InputController {
 	private final JoystickButton beltForwardButton;
 	private final JoystickButton beltBackwardButton;
 	
+	private final double baseSpeedFactor = 0.60;
+	private final double boostFactor = 0.25;
+	
 	// the driver is in charge of actually driving the robot around from place to place
 	// the operator is in charge of controlling the robot's intake and shooter and stuff
 	public DualXbox (int driverPort, int operatorPort) {
-		driverJoystick = new Joystick(driverPort);
+		driverJoystick = new XboxController(driverPort);
 		operatorJoystick = new Joystick(operatorPort);
 		
 		driverQuickTurnRightButton = new JoystickButton(operatorJoystick, Constants.gamepadAButton);
-		operatorMotionMagicRaiseClimberButton = new JoystickButton(operatorJoystick, Constants.gamepadXButton);
 		operatorBeltTurnButton = new JoystickButton(operatorJoystick, Constants.gamepadBButton);
-		operatorMotionMagicLowerClimberButton = new JoystickButton(operatorJoystick, Constants.gamepadYButton);
-
+		
 		//TODO: put these in constants
-		beltForwardButton = new JoystickButton(driverJoystick, 7);
-		beltBackwardButton = new JoystickButton(driverJoystick, 8);
+		operatorMotionMagicRaiseClimberButton = new JoystickButton(operatorJoystick, 6);
+		operatorMotionMagicLowerClimberButton = new JoystickButton(operatorJoystick, 5);
+		
+		beltForwardButton = new JoystickButton(operatorJoystick, 8);
+		beltBackwardButton = new JoystickButton(operatorJoystick, 7);
 	}
 	
 	@Override
 	public double getForwardSpeed() {
-		return 0.5*driverJoystick.getY();
+		return driverJoystick.getLeftY()*(baseSpeedFactor
+			 - boostFactor*driverJoystick.getRawAxis(2)	// LT value (in range [0, 1])
+			 + boostFactor*driverJoystick.getRawAxis(3));	// RT value (in range [0, 1])
 	}
 	
 	@Override
 	public double getTurnSpeed() {
-		return 0.5*driverJoystick.getX();
+		return driverJoystick.getLeftX()*(baseSpeedFactor
+			 - boostFactor*driverJoystick.getRawAxis(2)
+			 + boostFactor*driverJoystick.getRawAxis(3));
 	}
 	
 	@Override
 	public JoystickButton getQuickTurnRightButton() {
 		return driverQuickTurnRightButton;
 	}
-
+	
 	@Override
 	public JoystickButton getMotionMagicRaiseClimberButton() {
 		return operatorMotionMagicRaiseClimberButton;

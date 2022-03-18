@@ -6,19 +6,19 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.BeltBallThing;
+import frc.robot.subsystems.Belt;
 
-public class IntakeOuttakeBall extends CommandBase {
+public class RunBelt extends CommandBase {
 	// TODO: put these in Constants
 	// private static final int maxSpeed = 3000;
 	// private static final int maxAccelleration = 2000;
 	
-	private final BeltBallThing belt;
+	private final Belt belt;
 	private final int distance;
 	private double startTime;
 	private boolean isLaunchMode;
 	
-	public IntakeOuttakeBall(BeltBallThing belt, int distance) {
+	public RunBelt(Belt belt, int distance) {
 		this.belt = belt;
 		this.distance = distance;
 		
@@ -32,10 +32,10 @@ public class IntakeOuttakeBall extends CommandBase {
 		isLaunchMode = belt.isBallInTheThing();
 		System.out.println(isLaunchMode?"launching":"intaking");
 		if (isLaunchMode) {
-			belt.setMotionMagic(200000, 30000, 30000);
+			belt.setMotionMagic(300000, 30000, 30000);
 		}
 		else {
-			belt.setMotionMagic(100000, 5000, 2000);
+			belt.setMotionMagic(1000000, 5000, 5000);
 		}
 	}
 	
@@ -52,9 +52,8 @@ public class IntakeOuttakeBall extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		// TODO: put this 10 in a constant
 		return belt.isMotionMagicDone(distance) 
-			|| startTime + 7 < Timer.getFPGATimestamp()
-			|| (belt.isBallInTheThing() && !isLaunchMode); // TODO: maybe move this to separate command
+			|| (isLaunchMode && startTime + 2 < Timer.getFPGATimestamp())
+			|| (belt.isBallInTheThing() && !isLaunchMode);
 	} 
 }

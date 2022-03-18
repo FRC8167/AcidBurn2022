@@ -30,20 +30,9 @@ public final class Constants {
 	// public static final int RIGHT_SHOOTER_MOTOR = 10;
 	
 	//Gamepad Controller
-	public static final int GP_LEFT_X_AXIS = 0; //may not be needed in 2022
-	public static final int GP_LEFT_Y_AXIS = 1;  // may not be needed in 2022
-	public static final double DRIVETRAINSPEED = 0.7;
-	public static final double DRIVE_FORWARD_TIME = 10.0;
 	public static final double AUTONOMOUS_SPEED = 0.4;
 	public static final int DRIVERJOYSTICK_NUMBER = 0;
 	public static final int OPERATORJOYSTICK_NUMBER = 1;
-	public static final double INTAKE_SPEED = 0.1;  //775 WHICH IS WICKED FAST SO THIS SLOWS IT DOWN????
-	public static final int kGamepadBumperLeft = 5;
-	public static final int kGamepadBumperRight = 6;
-	public static final double INDEX_SPEED = 0.3;  //NEEDS PROTOTYPE TESTING
-	public static final double SHOOTER_SPINUP_SPEED = 0.75;
-	public static final double SHOOTER_SPINDOWN_SPEED = 0.4;
-	public static final double CLIMBER_RAISE_SPEED = 0.25;
 	
 	// TODO: all of these are wrong
 	public static int gamepadAButton = 1;
@@ -70,8 +59,18 @@ public final class Constants {
 
 	public static final double kMetertoFalconSensorUnit = 45812.56;  //needs adjustment for usage with Climber???
 	public static final double kSensorUnitsPerRotation = 2048;
+	
+	// climber constants
+	public static final double approxClimberTicksPerInch = 8137.74;
+	public static final double maxClimberExtensionInches = 15.5;
+	public static final double maxExtensionTicks = maxClimberExtensionInches * approxClimberTicksPerInch - 100;
+	
 	public static final int maxClimberSpeed = 7500;
 	public static final int maxClimberAccelleration = 4000;
-	public static final int timeoutRaiseClimber = 5;
-	public static final double timeoutLowerClimber = 5;
+	public static final double timeoutSetClimber = 7;
+	
+	// intake constants
+	public static final int intakeSensorPort = 0;
+	public static final double beltPercentError = 0.3;
+	public static final double timeoutMoveBelt = 10;
 }

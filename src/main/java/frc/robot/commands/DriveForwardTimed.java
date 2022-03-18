@@ -33,7 +33,7 @@ public class DriveForwardTimed extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		driveTrain.tankDrive(speed, speed);
+		driveTrain.tankDrive(-speed, -speed);
 	}
 	
 	// Called once the command ends or is interrupted.

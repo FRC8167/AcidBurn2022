@@ -7,9 +7,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Camera extends SubsystemBase {
 	private final UsbCamera camera;
 	
-	public Camera(int usbPortNumber) {
-		this.camera = new UsbCamera("pov: gameing", usbPortNumber);
-		CameraServer.addCamera(camera);
+	public Camera() {
+		this.camera = CameraServer.startAutomaticCapture();
 	}
 	
 	public void setFPS(int fps) {
@@ -25,6 +24,6 @@ public class Camera extends SubsystemBase {
 	}
 	
 	public void stopCapture() {
-		CameraServer.removeCamera("pov: gameing");
+		CameraServer.removeCamera("pov: gamer");
 	}
 }

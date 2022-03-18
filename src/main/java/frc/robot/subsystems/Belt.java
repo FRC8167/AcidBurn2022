@@ -15,17 +15,17 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class BeltBallThing extends SubsystemBase {
+public class Belt extends SubsystemBase {
 	private final WPI_TalonFX intakeMotor;
 	private DigitalInput intakeSwitch;
 	
 	/* constructor */
-	public BeltBallThing() {
+	public Belt() {
 		// creates and configures the climber motor
 		intakeMotor = new WPI_TalonFX(Constants.INTAKE_MOTOR);
 		configmotor();
 		
-		intakeSwitch = new DigitalInput(0); //TODO: put 0 in constants or sm
+		intakeSwitch = new DigitalInput(Constants.intakeSensorPort);
 		
 		//Important:  Must have zeroSensors() function
 		zeroSensors();
@@ -93,7 +93,7 @@ public class BeltBallThing extends SubsystemBase {
 		double sensorDistance = intakeMotor.getSelectedSensorPosition(0);
 		double percentError = 100 * (targetDistanceInNativeUnit - sensorDistance) / targetDistanceInNativeUnit;
 		
-		return percentError < 0.3 || percentError < 0;
+		return percentError < Constants.beltPercentError;
 	}
 	
 	public void stop() {

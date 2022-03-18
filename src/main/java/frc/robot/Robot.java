@@ -16,17 +16,14 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
 	private Command autonomousCommand;
-	private RobotContainer robotContainer;
+	private RobotContainer robotContainer = new RobotContainer();
 	
 	/**
 	 * This function is run when the robot is first started up and should be used for any
 	 * initialization code.
 	 */
 	@Override
-	public void robotInit() {
-		
-		robotContainer = new RobotContainer();
-	}
+	public void robotInit() {}
 	
 	/**
 	 * This function is called every robot packet, no matter the mode. Use this for items like
@@ -56,6 +53,7 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		// TODO: this autonomous code sucks, and doesnt have room for interestingness
 		autonomousCommand = robotContainer.getAutonomousCommand();
+		
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null) {
 			autonomousCommand.schedule(false);

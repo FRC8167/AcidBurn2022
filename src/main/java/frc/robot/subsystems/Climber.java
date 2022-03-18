@@ -16,9 +16,6 @@ import frc.robot.Constants;
 
 // NOTE: THE CLIMBER MUST BE LOWERED WHEN STARTING THE ROBOT!!!
 public class Climber extends SubsystemBase {
-	public static final double approxTicksPerInch = 8137.74;
-	public static final double maxExtensionInches = 15.5;
-	public static final double maxExtensionTicks = maxExtensionInches * approxTicksPerInch - 100;
 	private final WPI_TalonFX climberMotor;
 	
 	/* constructor */
@@ -39,7 +36,7 @@ public class Climber extends SubsystemBase {
 		
 		climberMotor.setNeutralMode(NeutralMode.Brake);
 		climberMotor.set(ControlMode.PercentOutput, 0);
-		climberMotor.configNeutralDeadband(0, 30);
+		climberMotor.configNeutralDeadband(0.1, 30);
 		
 		climberMotor.configClosedloopRamp(0.5);
 		climberMotor.configOpenloopRamp(0.5);
