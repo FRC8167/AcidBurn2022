@@ -14,8 +14,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
-	
-	// TODO: make sure these are all correct - i think that might be why the X and Y on the controller are reversed
 	private WPI_TalonFX leftFront = new WPI_TalonFX(Constants.LEFT_FRONT);
 	private WPI_TalonFX rightFront = new WPI_TalonFX(Constants.RIGHT_FRONT);
 	private WPI_TalonFX leftBack = new WPI_TalonFX(Constants.LEFT_BACK);
@@ -44,6 +42,14 @@ public class DriveTrain extends SubsystemBase {
 		rightBack.follow(rightFront);
 	}
 	
+	public void configMotorsForMotionMagic() {
+		//TODO make this
+		leftFront.setSelectedSensorPosition(0);
+		rightFront.setSelectedSensorPosition(0);
+		leftBack.setSelectedSensorPosition(0);
+		rightBack.setSelectedSensorPosition(0);
+	}
+	
 	public void arcadeDrive(double throttle, double rotation) {
 		drive.arcadeDrive(throttle, rotation);
 	}
@@ -55,6 +61,8 @@ public class DriveTrain extends SubsystemBase {
 	public void stop() {
 		drive.stopMotor();
 	}
+	
+	
 	
 	@Override
 	public void periodic() {
