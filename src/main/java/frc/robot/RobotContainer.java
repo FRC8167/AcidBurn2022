@@ -62,12 +62,12 @@ public class RobotContainer {
 		
 		m_climber.getDefaultCommand().schedule();
 		
-		System.out.println(m_climber.getCurrentCommand());
+		// System.out.println(m_climber.getCurrentCommand());
 	}
 	
 	private void configureButtonBindings() {
 		// 90 degree RIGHT Turn
-		// controller.getQuickTurnRightButton().whenPressed(new QuickTurnCommand(driveTrain, gyro, 90));
+		// controller.getQuickTurnRightButton().whenPressed(new QuickTurnCommand(driveTrain, 90));
 		
 		//raise climber some distance (5 rotations)
 		controller.getMotionMagicRaiseClimberButton().whenPressed(new SetClimberDistance(m_climber, 15));

@@ -27,13 +27,13 @@ public class SetClimberDistance extends CommandBase {
 		
 		climber.setMotionMagic(distance, Constants.maxClimberSpeed, Constants.maxClimberAccelleration);
 		
-		System.out.println("climber socmmand i nitealismxed"); // habeo unum strokum
+		// System.out.println("climber socmmand i nitealismxed"); // habeo unum strokum
 	}
 	
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		if (distance != 0) System.out.println("running the climber command " + distance);
+		// if (distance != 0) System.out.println("running the climber command " + distance);
 	}
 	
 	// Called once the command ends or is interrupted.
