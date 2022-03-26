@@ -9,26 +9,22 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Gyro;
 
 public class QuickTurnCommand extends CommandBase {
 	private final DriveTrain driveTrain;
-	private final Gyro gyro;
 	
 	private final double turnAngle;
 	private final double initialAngle;
 	private double startTimeTurn = 0;
 	
 	/** Creates a new QuickTurnCommand. */
-	public QuickTurnCommand(DriveTrain driveTrain, Gyro gyroSubsystem, int desiredTurnAngle) {
+	public QuickTurnCommand(DriveTrain driveTrain, double turnAngleDegrees) {
 		this.driveTrain = driveTrain;
-		this.gyro = gyroSubsystem;
 		
-		this.turnAngle = desiredTurnAngle;
-		this.initialAngle = gyro.getAngle();
+		this.turnAngle = turnAngleDegrees;
+		this.initialAngle = driveTrain.getYaw();
 		
 		// Use addRequirements() here to declare subsystem dependencies.
-		addRequirements(gyro);
 		addRequirements(driveTrain);
 	}
 	
@@ -41,17 +37,18 @@ public class QuickTurnCommand extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		double turnError = gyro.getAngle() -(initialAngle + turnAngle);
+		// double turnError = gyro.getAngle() -(initialAngle + turnAngle);
 		
-		double turnPower = turnError * Constants.quickTurnProportion;
-		if (Math.abs(turnError) > 90) {
-			turnPower = turnPower * 0.75;  //for large angles we tune it down a tad  could do 0.5
-		}
-		turnPower = Math.min(1, turnPower);
-		turnPower = Math.max(-1, turnPower);
+		// double turnPower = turnError * Constants.quickTurnProportion;
+		// if (Math.abs(turnError) > 90) {
+		// 	turnPower = turnPower * 0.75;  //for large angles we tune it down a tad  could do 0.5
+		// }
+		// turnPower = Math.min(1, turnPower);
+		// turnPower = Math.max(-1, turnPower);
+		
 		// System.out.println(turnPower);
 		// idk why but arcadeDrive(0, turnPower) doesnt seem to want to work for some reason
-		driveTrain.tankDrive(turnPower, -turnPower);
+		driveTrain.tankDrive(0.2, -0.2);
 	}
 	
 	// Called once the command ends or is interrupted.
@@ -61,7 +58,7 @@ public class QuickTurnCommand extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		if (Math.abs(gyro.getAngle() - (initialAngle + turnAngle)) < 3) {
+		if (Math.abs(driveTrain.getYaw() - (initialAngle + turnAngle)) < 3) {
 			return true;
 		}
 		return startTimeTurn + Constants.timeoutQuickTurn < Timer.getFPGATimestamp();

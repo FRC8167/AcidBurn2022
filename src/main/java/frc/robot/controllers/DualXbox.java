@@ -3,7 +3,7 @@ package frc.robot.controllers;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Constants;
+// import frc.robot.Constants;
 
 
 public class DualXbox implements InputController {
@@ -29,10 +29,10 @@ public class DualXbox implements InputController {
 		driverJoystick = new XboxController(driverPort);
 		operatorJoystick = new Joystick(operatorPort);
 		
-		driverQuickTurnRightButton = new JoystickButton(operatorJoystick, Constants.gamepadAButton);
-		operatorBeltTurnButton = new JoystickButton(operatorJoystick, Constants.gamepadBButton);
-		
 		//TODO: put these in constants
+		driverQuickTurnRightButton = new JoystickButton(driverJoystick, 1);
+		operatorBeltTurnButton = new JoystickButton(operatorJoystick, 2);
+		
 		operatorMotionMagicRaiseClimberButton = new JoystickButton(operatorJoystick, 6);
 		operatorMotionMagicLowerClimberButton = new JoystickButton(operatorJoystick, 5);
 		

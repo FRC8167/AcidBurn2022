@@ -25,6 +25,7 @@ public final class Constants {
 	// public static final int PCM_CAN_ID = 5;
 	public static final int CLIMBER_MOTOR = 6;
 	public static final int INTAKE_MOTOR = 7;
+	public static final int PIGEON_CANID = 8;
 	// public static final int INDEXER_MOTOR = 8;
 	// public static final int LEFT_SHOOTER_MOTOR = 9;
 	// public static final int RIGHT_SHOOTER_MOTOR = 10;
@@ -35,10 +36,10 @@ public final class Constants {
 	public static final int OPERATORJOYSTICK_NUMBER = 1;
 	
 	// TODO: all of these are wrong
-	public static int gamepadAButton = 1;
-	public static int gamepadBButton = 2;
-	public static int gamepadXButton = 3;
-	public static int gamepadYButton = 4;
+	// public static final int gamepadAButton = 1;
+	// public static final int gamepadBButton = 2;
+	// public static final int gamepadXButton = 3;
+	// public static final int gamepadYButton = 4;
 	
 	//PID
 	public static final int kpIDLoopIDx = 0;

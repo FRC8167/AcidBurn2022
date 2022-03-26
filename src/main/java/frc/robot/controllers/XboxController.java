@@ -3,7 +3,7 @@ package frc.robot.controllers;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Constants;
+// import frc.robot.Constants;
 // import frc.robot.commands.ClimberCommands.MotionMagicRaiseClimber;
 
 public class XboxController implements InputController {
@@ -20,10 +20,10 @@ public class XboxController implements InputController {
 	// the operator is in charge of controlling the robot's intake and shooter and stuff
 	public XboxController (int driverPort, int operatorPort) {
 		joystick = new Joystick(driverPort);
-		quickTurnRightButton = new JoystickButton(joystick, Constants.gamepadAButton);
-		motionMagicRaiseClimberButton = new JoystickButton(joystick, Constants.gamepadXButton);
-		motionMagicLowerClimberButton = new JoystickButton(joystick, Constants.gamepadYButton);
-
+		quickTurnRightButton = new JoystickButton(joystick, 1);
+		motionMagicRaiseClimberButton = new JoystickButton(joystick, 3);
+		motionMagicLowerClimberButton = new JoystickButton(joystick, 4);
+		
 	}
 	
 	@Override

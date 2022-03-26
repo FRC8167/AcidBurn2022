@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.DriveForwardTimed;
 import frc.robot.commands.MoveBelt;
+import frc.robot.commands.QuickTurnCommand;
 import frc.robot.commands.SetClimberDistance;
 import frc.robot.commands.RunBelt;
 import frc.robot.controllers.DualXbox;
@@ -67,7 +68,7 @@ public class RobotContainer {
 	
 	private void configureButtonBindings() {
 		// 90 degree RIGHT Turn
-		// controller.getQuickTurnRightButton().whenPressed(new QuickTurnCommand(driveTrain, 90));
+		controller.getQuickTurnRightButton().whenPressed(new QuickTurnCommand(driveTrain, 90));
 		
 		//raise climber some distance (5 rotations)
 		controller.getMotionMagicRaiseClimberButton().whenPressed(new SetClimberDistance(m_climber, 15));
