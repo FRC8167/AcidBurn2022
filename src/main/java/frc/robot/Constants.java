@@ -68,9 +68,9 @@ public final class Constants {
 	public static final double maxClimberExtensionInches = 15.5;
 	public static final double maxExtensionTicks = maxClimberExtensionInches * approxClimberTicksPerInch - 100;
 	
-	public static final int maxClimberSpeed = 7500;
+	public static final int maxClimberSpeed = 10000;
 	public static final int maxClimberAccelleration = 4000;
-	public static final double timeoutSetClimber = 7;
+	public static final double timeoutSetClimber = 30.0;
 	
 	// intake constants
 	public static final int intakeSensorPort = 0;

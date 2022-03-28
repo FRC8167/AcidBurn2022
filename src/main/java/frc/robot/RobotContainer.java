@@ -13,6 +13,7 @@ import frc.robot.subsystems.Climber;
 // import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.commands.DriveForwardTimed;
 import frc.robot.commands.MoveBelt;
 import frc.robot.commands.QuickTurnCommand;
@@ -82,11 +83,15 @@ public class RobotContainer {
 	
 	// returns the command to run in autonomous
 	public Command getAutonomousCommand() {
-		// TODO: actual autonomous code
 		//return m_choose.getSelected();
 		return new SequentialCommandGroup(
-			new MoveBelt(belt, 0.8, 2),
-			new DriveForwardTimed(driveTrain, 5, Constants.AUTONOMOUS_SPEED)
+			new RunBelt(belt, 1000000),
+			new ParallelCommandGroup(
+				new DriveForwardTimed(driveTrain, 5, Constants.AUTONOMOUS_SPEED),
+				new RunBelt(belt, 1000000)
+			),
+			new DriveForwardTimed(driveTrain, 5, -Constants.AUTONOMOUS_SPEED),
+			new RunBelt(belt, 1000000)
 		);
 	}
 	
