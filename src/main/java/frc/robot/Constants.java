@@ -62,7 +62,9 @@ public final class Constants {
 	public static final double kSensorUnitsPerRotation = 2048;
 	
 	// climber constants
-	public static final double approxClimberTicksPerInch = 8137.74;
+	private static final double gearboxRatio = 20; // we are using a 20:1 gearbox
+	private static final double approxMotorTicksPerInch = 678.125;
+	public static final double approxClimberTicksPerInch = approxMotorTicksPerInch * gearboxRatio;
 	public static final double maxClimberExtensionInches = 15.5;
 	public static final double maxExtensionTicks = maxClimberExtensionInches * approxClimberTicksPerInch - 100;
 	
