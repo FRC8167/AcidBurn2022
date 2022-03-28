@@ -14,7 +14,7 @@ public class QuickTurnCommand extends CommandBase {
 	private final DriveTrain driveTrain;
 	
 	private final double turnAngle;
-	private final double initialAngle;
+	private double initialAngle;
 	private double startTimeTurn = 0;
 	
 	/** Creates a new QuickTurnCommand. */
@@ -22,7 +22,6 @@ public class QuickTurnCommand extends CommandBase {
 		this.driveTrain = driveTrain;
 		
 		this.turnAngle = turnAngleDegrees;
-		this.initialAngle = driveTrain.getYaw();
 		
 		// Use addRequirements() here to declare subsystem dependencies.
 		addRequirements(driveTrain);
@@ -32,6 +31,7 @@ public class QuickTurnCommand extends CommandBase {
 	@Override
 	public void initialize() {
 		startTimeTurn = Timer.getFPGATimestamp();
+		this.initialAngle = driveTrain.getYaw();
 	}
 	
 	// Called every time the scheduler runs while the command is scheduled.
@@ -48,7 +48,7 @@ public class QuickTurnCommand extends CommandBase {
 		
 		// System.out.println(turnPower);
 		// idk why but arcadeDrive(0, turnPower) doesnt seem to want to work for some reason
-		driveTrain.tankDrive(0.2, -0.2);
+		driveTrain.tankDrive(0.4, -0.4);
 	}
 	
 	// Called once the command ends or is interrupted.
@@ -58,9 +58,9 @@ public class QuickTurnCommand extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		if (Math.abs(driveTrain.getYaw() - (initialAngle + turnAngle)) < 3) {
+		if (Math.abs((driveTrain.getYaw() - (initialAngle - turnAngle))%360) < 1.5) {
 			return true;
 		}
-		return startTimeTurn + Constants.timeoutQuickTurn < Timer.getFPGATimestamp();
+		return false; //startTimeTurn + Constants.timeoutQuickTurn < Timer.getFPGATimestamp();
 	}
 }
