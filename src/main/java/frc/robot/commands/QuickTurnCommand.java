@@ -14,14 +14,17 @@ public class QuickTurnCommand extends CommandBase {
 	private final DriveTrain driveTrain;
 	
 	private final double turnAngle;
+	private final int reversed;
 	private double initialAngle;
-	private double startTimeTurn = 0;
+	private double startTimeTurn;
+	
 	
 	/** Creates a new QuickTurnCommand. */
 	public QuickTurnCommand(DriveTrain driveTrain, double turnAngleDegrees) {
 		this.driveTrain = driveTrain;
 		
 		this.turnAngle = turnAngleDegrees;
+		this.reversed = (this.turnAngle < 0)?-1:1;
 		
 		// Use addRequirements() here to declare subsystem dependencies.
 		addRequirements(driveTrain);
@@ -37,18 +40,7 @@ public class QuickTurnCommand extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		// double turnError = gyro.getAngle() -(initialAngle + turnAngle);
-		
-		// double turnPower = turnError * Constants.quickTurnProportion;
-		// if (Math.abs(turnError) > 90) {
-		// 	turnPower = turnPower * 0.75;  //for large angles we tune it down a tad  could do 0.5
-		// }
-		// turnPower = Math.min(1, turnPower);
-		// turnPower = Math.max(-1, turnPower);
-		
-		// System.out.println(turnPower);
-		// idk why but arcadeDrive(0, turnPower) doesnt seem to want to work for some reason
-		driveTrain.tankDrive(0.4, -0.4);
+		driveTrain.tankDrive(0.5*reversed, -0.5*reversed);
 	}
 	
 	// Called once the command ends or is interrupted.
@@ -58,9 +50,9 @@ public class QuickTurnCommand extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		if (Math.abs((driveTrain.getYaw() - (initialAngle - turnAngle))%360) < 1.5) {
+		if (Math.abs((driveTrain.getYaw() - (initialAngle - turnAngle))%360) < 2) {
 			return true;
 		}
-		return false; //startTimeTurn + Constants.timeoutQuickTurn < Timer.getFPGATimestamp();
+		return startTimeTurn + Constants.timeoutQuickTurn < Timer.getFPGATimestamp();
 	}
 }

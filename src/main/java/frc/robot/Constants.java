@@ -56,7 +56,7 @@ public final class Constants {
 	public static final int turnAutoSlotIDx = 1;
 	public static final int PID_TURN = 1;
 	public static final double quickTurnProportion = 0.008;  //may need to tweak
-	public static final int timeoutQuickTurn = 3;  //can change this
+	public static final int timeoutQuickTurn = 10;  //can change this
 
 	public static final double kMetertoFalconSensorUnit = 45812.56;  //needs adjustment for usage with Climber???
 	public static final double kSensorUnitsPerRotation = 2048;

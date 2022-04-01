@@ -50,7 +50,7 @@ public class Climber extends SubsystemBase {
 		climberMotor.config_kD(0, 0, 30);
 		
 		climberMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 30);
-		climberMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10,30);
+		climberMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 30);
 		
 		climberMotor.setInverted(true);
 		climberMotor.setSensorPhase(false);

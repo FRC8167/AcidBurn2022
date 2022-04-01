@@ -4,9 +4,11 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 // import com.ctre.phoenix.motorcontrol.ControlMode;
 // import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.Pigeon2;
 
@@ -26,6 +28,11 @@ public class DriveTrain extends SubsystemBase {
 
 	/** Creates a new DriveTrain. */
 	public DriveTrain() {
+		configMotors();
+	}
+	
+	public void configMotors() {
+		//TODO make this
 		//Set all motors to factory defaults for safety
 		leftFront.configFactoryDefault();
 		rightFront.configFactoryDefault();
@@ -38,15 +45,48 @@ public class DriveTrain extends SubsystemBase {
 		leftBack.setNeutralMode(NeutralMode.Brake);
 		rightBack.setNeutralMode(NeutralMode.Brake);
 		
+		leftBack.follow(leftFront);
+		rightBack.follow(rightFront);
+		
+		// invert these motors
 		rightBack.setInverted(true);
 		rightFront.setInverted(true);
 		
-		leftBack.follow(leftFront);
-		rightBack.follow(rightFront);
-	}
-	
-	public void configMotorsForMotionMagic() {
-		//TODO make this
+		// limit accelleration
+		leftFront.configOpenloopRamp(0.5);
+		rightFront.configOpenloopRamp(0.5);
+		leftFront.configClosedloopRamp(0.5);
+		rightFront.configClosedloopRamp(0.5);
+		
+		leftFront.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 30);
+		rightFront.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0, 30);
+		leftFront.selectProfileSlot(0, 0);
+		rightFront.selectProfileSlot(0, 0);
+		
+		leftFront.config_kF(0, 0.045);
+		leftFront.config_kP(0, 0.049);
+		leftFront.config_kI(0, 0);
+		leftFront.config_kD(0, 0);
+		rightFront.config_kF(0, 0.045);
+		rightFront.config_kP(0, 0.049);
+		rightFront.config_kI(0, 0);
+		rightFront.config_kD(0, 0);
+		
+		rightFront.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 30);
+		rightFront.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 30);
+		leftFront.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 30);
+		leftFront.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 30);
+		
+		rightFront.configNominalOutputForward(0);
+		leftFront.configNominalOutputForward(0);
+		rightFront.configNominalOutputReverse(0);
+		leftFront.configNominalOutputReverse(0);
+		
+		rightFront.configPeakOutputForward(1);
+		leftFront.configPeakOutputForward(1);
+		rightFront.configPeakOutputReverse(-1);
+		leftFront.configPeakOutputReverse(-1);
+		
 		leftFront.setSelectedSensorPosition(0);
 		rightFront.setSelectedSensorPosition(0);
 		leftBack.setSelectedSensorPosition(0);
@@ -68,6 +108,15 @@ public class DriveTrain extends SubsystemBase {
 	
 	public double getYaw() {
 		return pigeon.getYaw();
+	}
+	
+	
+	public void setMotionMagic(double distance, double maxVelocity, double maxAcceleration) {
+		
+	}
+	
+	public boolean isMotionMagicDone() {
+		return false;
 	}
 	
 	

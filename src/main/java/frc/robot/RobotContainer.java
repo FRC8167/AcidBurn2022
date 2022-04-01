@@ -68,8 +68,8 @@ public class RobotContainer {
 	}
 	
 	private void configureButtonBindings() {
-		// 90 degree RIGHT Turn
-		controller.getQuickTurnRightButton().whenPressed(new QuickTurnCommand(driveTrain, 90));
+		// 180 degree RIGHT Turn
+		controller.getQuickTurnRightButton().whenPressed(new QuickTurnCommand(driveTrain, 180));
 		
 		//raise climber some distance (5 rotations)
 		controller.getMotionMagicRaiseClimberButton().whenPressed(new SetClimberDistance(m_climber, 15));
@@ -86,11 +86,15 @@ public class RobotContainer {
 		//return m_choose.getSelected();
 		return new SequentialCommandGroup(
 			new RunBelt(belt, 1000000),
+			new DriveForwardTimed(driveTrain, 2.5, 0.4),
+			new QuickTurnCommand(driveTrain, 15),
 			new ParallelCommandGroup(
-				new DriveForwardTimed(driveTrain, 5, Constants.AUTONOMOUS_SPEED),
+				new DriveForwardTimed(driveTrain, 3, Constants.AUTONOMOUS_SPEED),
 				new RunBelt(belt, 1000000)
 			),
-			new DriveForwardTimed(driveTrain, 5, -Constants.AUTONOMOUS_SPEED),
+			new DriveForwardTimed(driveTrain, 3, -Constants.AUTONOMOUS_SPEED),
+			new QuickTurnCommand(driveTrain, -15),
+			new DriveForwardTimed(driveTrain, 2.5, -0.4),
 			new RunBelt(belt, 1000000)
 		);
 	}
