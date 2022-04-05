@@ -89,7 +89,7 @@ public class Belt extends SubsystemBase {
 		intakeMotor.set(ControlMode.MotionMagic, distance);
 	}
 	
-	public boolean isMotionMagicDone (double targetDistanceInNativeUnit) {
+	public boolean isMotionMagicDone(double targetDistanceInNativeUnit) {
 		double sensorDistance = intakeMotor.getSelectedSensorPosition(0);
 		double percentError = 100 * (targetDistanceInNativeUnit - sensorDistance) / targetDistanceInNativeUnit;
 		

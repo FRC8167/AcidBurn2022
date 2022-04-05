@@ -5,12 +5,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
 public class DriveForwardFeet extends CommandBase {
+	public static final double motorTicksPerFoot = 13994.16;
 	private final DriveTrain driveTrain;
 	private final double distance;
 	private double startTime;
 	
-	public DriveForwardFeet(DriveTrain driveTrain, double distance) {
-		this.distance = distance;
+	public DriveForwardFeet(DriveTrain driveTrain, double distanceFeet) {
+		distance = distanceFeet * motorTicksPerFoot;
 		this.driveTrain = driveTrain;
 		
 		addRequirements(driveTrain);
@@ -20,6 +21,20 @@ public class DriveForwardFeet extends CommandBase {
 	public void initialize() {
 		startTime = Timer.getFPGATimestamp();
 		
-		// driveTrain.setMotionMagic();
+		driveTrain.setMotionMagic(distance, 5000, 2000);
+	}
+	
+	@Override
+	public void execute() {}
+	
+	@Override
+	public void end(boolean interrupted) {
+		driveTrain.stopMotionMagic();
+	}
+	
+	@Override
+	public boolean isFinished() {
+		return Timer.getFPGATimestamp() > startTime + 10
+			|| driveTrain.isMagicMotionDone(distance);
 	}
 }

@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 // import com.ctre.phoenix.motorcontrol.ControlMode;
 // import com.ctre.phoenix.motorcontrol.InvertType;
@@ -112,16 +113,37 @@ public class DriveTrain extends SubsystemBase {
 	
 	
 	public void setMotionMagic(double distance, double maxVelocity, double maxAcceleration) {
+		drive.setSafetyEnabled(false);
 		
+		leftFront.getSensorCollection().setIntegratedSensorPosition(0, 30);
+		rightFront.getSensorCollection().setIntegratedSensorPosition(0, 30);
+		
+		rightFront.configMotionCruiseVelocity(maxVelocity);
+		leftFront.configMotionCruiseVelocity(maxVelocity);
+		
+		rightFront.configMotionAcceleration(maxAcceleration);
+		leftFront.configMotionAcceleration(maxAcceleration);
+		
+		rightFront.set(ControlMode.MotionMagic, -distance);
+		leftFront.set(ControlMode.MotionMagic, -distance);
 	}
 	
-	public boolean isMotionMagicDone() {
-		return false;
+	public void stopMotionMagic() {
+		leftFront.set(ControlMode.PercentOutput, 0);
+		rightFront.set(ControlMode.PercentOutput, 0);
+		
+		drive.setSafetyEnabled(true);
 	}
-	
 	
 	@Override
 	public void periodic() {
 		// This method will be called once per scheduler run
+	}
+	
+	public boolean isMagicMotionDone(double distanceTicks) {
+		double sensorDistance = rightFront.getSelectedSensorPosition(0);
+		double percentError = 100 * (-distanceTicks - sensorDistance) / -distanceTicks;
+		
+		return percentError < 1;
 	}
 }
