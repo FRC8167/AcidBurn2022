@@ -21,7 +21,7 @@ public class DriveForwardFeet extends CommandBase {
 	public void initialize() {
 		startTime = Timer.getFPGATimestamp();
 		
-		driveTrain.setMotionMagic(distance, 5000, 2000);
+		driveTrain.setMotionMagic(distance, 10000, 4000);
 	}
 	
 	@Override
@@ -34,7 +34,7 @@ public class DriveForwardFeet extends CommandBase {
 	
 	@Override
 	public boolean isFinished() {
-		return Timer.getFPGATimestamp() > startTime + 10
+		return Timer.getFPGATimestamp() > startTime + 5
 			|| driveTrain.isMagicMotionDone(distance);
 	}
 }

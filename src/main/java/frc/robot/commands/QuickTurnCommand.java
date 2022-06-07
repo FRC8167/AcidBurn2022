@@ -24,7 +24,7 @@ public class QuickTurnCommand extends CommandBase {
 		this.driveTrain = driveTrain;
 		
 		this.turnAngle = turnAngleDegrees;
-		this.reversed = (this.turnAngle < 0)?-1:1;
+		this.reversed = ((this.turnAngle < 0)?-1:1);
 		
 		// Use addRequirements() here to declare subsystem dependencies.
 		addRequirements(driveTrain);

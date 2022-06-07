@@ -144,6 +144,6 @@ public class DriveTrain extends SubsystemBase {
 		double sensorDistance = rightFront.getSelectedSensorPosition(0);
 		double percentError = 100 * (-distanceTicks - sensorDistance) / -distanceTicks;
 		
-		return percentError < 1;
+		return (distanceTicks < 14000 && percentError < 5) || percentError < 1 ;
 	}
 }
